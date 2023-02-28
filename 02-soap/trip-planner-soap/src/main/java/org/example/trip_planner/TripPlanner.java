@@ -1,6 +1,7 @@
 package org.example.trip_planner;
 
 import jakarta.jws.WebService;
+import org.example.shared.Address;
 import org.example.planned_items.*;
 import org.example.planned_items.Calendar;
 
@@ -57,10 +58,18 @@ public class TripPlanner implements ITripPlanner {
             throw new IllegalArgumentException(e);
         }
 
-        EventItem eventConcert = new EventItem(UUID.randomUUID(), 41.9027835, 12.4963655)
+        EventItem eventConcert = new EventItem(
+                UUID.fromString("42cf722b-8be7-496e-80a6-3cb4a82f1ff0"),
+                41.9027835,
+                12.4963655
+        )
                 .setDate(dateTimeConcertFrom, dateTimeConcertTo);
 
-        EventItem eventCinema = new EventItem(UUID.randomUUID(), 41.9617835, 12.1263655)
+        EventItem eventCinema = new EventItem(
+                UUID.fromString("42a96db0-1316-468c-96ec-44b50396678a"),
+                41.9617835,
+                12.1263655
+        )
                 .setDate(dateTimeCinemaFrom, dateTimeCinemaTo);
 
         PlanItem placeRestaurant = new PlaceItem(UUID.randomUUID(), 41.9004881, 12.4686586);
@@ -100,24 +109,18 @@ public class TripPlanner implements ITripPlanner {
         return new Calendar(plannedItems);
     }
 
-    public PlaceItem savePlaceItem(UUID uuid, double latitude, double longitude) {
+    public void savePlaceItem(UUID uuid, double latitude, double longitude) {
         PlaceItem place = new PlaceItem(uuid, latitude, longitude);
         mockPlannedItems.put(uuid, place);
-
-        return place;
     }
 
-    public EventItem saveEventItem(UUID uuid, double latitude, double longitude) {
+    public void saveEventItem(UUID uuid, double latitude, double longitude) {
         EventItem event = new EventItem(uuid, latitude, longitude);
         mockPlannedItems.put(uuid, event);
-
-        return event;
     }
 
-    public Calendar addCalendarItem(CalendarItem item) {
+    public void addCalendarItem(CalendarItem item) {
         mockCalendar.addItem(item);
-
-        return mockCalendar;
     }
 
     public Trip getOrCreate(String tripName) {

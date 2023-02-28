@@ -8,7 +8,7 @@ import java.util.UUID;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Trip {
     private final UUID uuid;
-    private final String name;
+    private String name;
     private Date dateFrom;
     private Date dateTo;
     private String locationCity;

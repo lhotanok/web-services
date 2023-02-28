@@ -2,6 +2,7 @@ package org.example.trip_planner;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
+import org.example.shared.Address;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Accommodation {

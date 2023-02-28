@@ -1,4 +1,4 @@
-package org.example.trip_planner;
+package org.example.shared;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;

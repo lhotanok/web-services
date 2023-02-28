@@ -19,14 +19,14 @@ public interface ITripPlanner {
     Calendar planMyTrip();
 
     @jakarta.jws.WebMethod
-    PlaceItem savePlaceItem(
+    void savePlaceItem(
             @WebParam(name = "id") UUID uuid,
             @WebParam(name = "lat") double latitude,
             @WebParam(name = "long") double longitude
     );
 
     @jakarta.jws.WebMethod
-    EventItem saveEventItem(
+    void saveEventItem(
             @WebParam(name = "id") UUID uuid,
             @WebParam(name = "lat") double latitude,
             @WebParam(name = "long") double longitude
@@ -56,7 +56,7 @@ public interface ITripPlanner {
     );
 
     @jakarta.jws.WebMethod
-    Calendar addCalendarItem(@WebParam(name = "item") CalendarItem item);
+    void addCalendarItem(@WebParam(name = "item") CalendarItem item);
 }
 
 
