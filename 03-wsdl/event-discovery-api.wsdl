@@ -1,131 +1,115 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <definitions
-    xmlns="http://schemas.xmlsoap.org/wsdl/"
-    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-    xmlns:tns="http://event_discovery_api.example.org/"
-    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://event_discovery_api.example.org/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
     name="EventDisoveryApiService"
     targetNamespace="http://event_discovery_api.example.org/">
-
-   <types>
-    <xs:schema targetNamespace="http://event_discovery_api.example.org/">
-
-    <xs:complexType name="Address">
-            <xs:sequence>
-                <xs:element name="streetAddress" type="xs:string"/>
-                <xs:element name="postalCode" type="xs:int"/>
-                <xs:element name="city" type="xs:string"/>
-                <xs:element name="country" type="xs:string"/>
-                <xs:element name="countryCode" type="xs:string"/>
-            </xs:sequence>
-        </xs:complexType>
-
-    <xs:complexType name="Event">
-            <xs:sequence>
-                <xs:element name="uuid" type="xs:string"/>
-                <xs:element name="name" type="xs:string"/>
-                <xs:element name="latitude" type="xs:double"/>
-                <xs:element name="longitude" type="xs:double"/>
-                <xs:element name="geohash" type="xs:string"/>
-                <xs:element name="address" type="tns:Address"/>
-                <xs:element name="dateTimeFrom" type="xs:dateTime"/>
-                <xs:element name="dateTimeTo" type="xs:dateTime"/>
-            </xs:sequence>
-        </xs:complexType>
-
-      <xs:element name="fetchNearEvents">
-        <xs:complexType>
-            <xs:sequence>
-            <xs:element name="lat" type="xs:double"/>
-            <xs:element name="long" type="xs:double"/>
-            <xs:element name="radius" type="xs:integer"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-
-      <xs:element name="fetchNearEventsResponse">
-        <xs:complexType>
-            <xs:sequence>
-            <xs:element name="event" type="tns:Event" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-
-      <xs:element name="fetchNearEventsByGeohash">
-        <xs:complexType>
-            <xs:sequence>
-            <xs:element name="geohash" type="xs:string"/>
-            <xs:element name="radius" type="xs:integer"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-
-      <xs:element name="fetchNearEventsByGeohashResponse">
-        <xs:complexType>
-            <xs:sequence>
-            <xs:element name="event" type="tns:Event" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-
-    </xs:schema>
-  </types>
-
-  <message name="fetchNearEventsRequest">
-    <part name="parameters" element="tns:fetchNearEvents"/>
-    </message>
-
-     <message name = "fetchNearEventsResponse">
-        <part name = "parameters" element = "tns:fetchNearEventsResponse"/>
-     </message>
-
-  <message name="fetchNearEventsByGeohashRequest">
-	<part name="parameters" element="tns:fetchNearEventsByGeohash"/>
-  </message>
-
-   <message name = "fetchNearEventsByGeohashResponse">
-      <part name = "parameters" element = "tns:fetchNearEventsByGeohashResponse"/>
-   </message>
-
-   <portType name="EventDiscoveryApiService">
-    <operation name="fetchNearEvents">
-      <input message="tns:fetchNearEventsRequest"/>
-      <output message="tns:fetchNearEventsResponse"/>
-    </operation>
-    <operation name="fetchNearEventsByGeohash">
-      <input message="tns:fetchNearEventsByGeohashRequest"/>
-      <output message="tns:fetchNearEventsByGeohashResponse"/>
-    </operation>
-  </portType>
-
-  <binding name="EventDiscoveryApiServiceSOAP" type="tns:EventDiscoveryApiService">
-    <soap:binding style="document"
+	<types>
+		<xs:schema targetNamespace="http://event_discovery_api.example.org/">
+			<xs:complexType name="Address">
+				<xs:sequence>
+					<xs:element name="streetAddress" type="xs:string"/>
+					<xs:element name="postalCode" type="xs:int"/>
+					<xs:element name="city" type="xs:string"/>
+					<xs:element name="country" type="xs:string"/>
+					<xs:element name="countryCode" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="Event">
+				<xs:sequence>
+					<xs:element name="uuid" type="xs:string"/>
+					<xs:element name="name" type="xs:string"/>
+					<xs:element name="latitude" type="xs:double"/>
+					<xs:element name="longitude" type="xs:double"/>
+					<xs:element name="geohash" type="xs:string"/>
+					<xs:element name="address" type="tns:Address"/>
+					<xs:element name="dateTimeFrom" type="xs:dateTime"/>
+					<xs:element name="dateTimeTo" type="xs:dateTime"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="fetchNearEvents">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="lat" type="xs:double"/>
+						<xs:element name="long" type="xs:double"/>
+						<xs:element name="radius" type="xs:integer"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="fetchNearEventsResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="event" type="tns:Event" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="fetchNearEventsByGeohash">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="geohash" type="xs:string"/>
+						<xs:element name="radius" type="xs:integer"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="fetchNearEventsByGeohashResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="event" type="tns:Event" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:schema>
+	</types>
+	<message name="fetchNearEventsRequest">
+		<part name="parameters" element="tns:fetchNearEvents"/>
+	</message>
+	<message name = "fetchNearEventsResponse">
+		<part name = "parameters" element = "tns:fetchNearEventsResponse"/>
+	</message>
+	<message name="fetchNearEventsByGeohashRequest">
+		<part name="parameters" element="tns:fetchNearEventsByGeohash"/>
+	</message>
+	<message name = "fetchNearEventsByGeohashResponse">
+		<part name = "parameters" element = "tns:fetchNearEventsByGeohashResponse"/>
+	</message>
+	<portType name="EventDiscoveryApiService">
+		<operation name="fetchNearEvents">
+			<input message="tns:fetchNearEventsRequest"/>
+			<output message="tns:fetchNearEventsResponse"/>
+		</operation>
+		<operation name="fetchNearEventsByGeohash">
+			<input message="tns:fetchNearEventsByGeohashRequest"/>
+			<output message="tns:fetchNearEventsByGeohashResponse"/>
+		</operation>
+	</portType>
+	<binding name="EventDiscoveryApiServiceSOAP" type="tns:EventDiscoveryApiService">
+		<soap:binding style="document"
                   transport="http://schemas.xmlsoap.org/soap/http"/>
-    <operation name="fetchNearEvents">
-      <soap:operation soapAction=""/>
-      <input>
-        <soap:body use="literal"/>
-      </input>
-      <output>
-        <soap:body use="literal"/>
-      </output>
-    </operation>
-    <operation name="fetchNearEventsByGeohash">
-      <soap:operation soapAction=""/>
-      <input>
-        <soap:body use="literal"/>
-      </input>
-      <output>
-        <soap:body use="literal"/>
-      </output>
-    </operation>
-  </binding>
-
-  <service name="EventDiscoveryApiService">
-    <port binding="tns:EventDiscoveryApiServiceSOAP" name="EventDiscoveryApiServiceSOAP">
-      <soap:address location="http://127.0.0.1:8000/IEventDiscoveryApi"/>
-    </port>
-  </service>
-
+		<operation name="fetchNearEvents">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="fetchNearEventsByGeohash">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="EventDiscoveryApiService">
+		<port binding="tns:EventDiscoveryApiServiceSOAP" name="EventDiscoveryApiServiceSOAP">
+			<soap:address location="http://127.0.0.1:8000/IEventDiscoveryApi"/>
+		</port>
+	</service>
 </definitions>
