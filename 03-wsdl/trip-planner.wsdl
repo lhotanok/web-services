@@ -5,7 +5,7 @@
     xmlns:tns="http://trip_planner.example.org/"
     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    name="BookService"
+    name="TripPlannerService"
     targetNamespace="http://trip_planner.example.org/">
 
    <types>
