@@ -21,7 +21,6 @@
             </xs:sequence>
         </xs:complexType>
 
-
       <xs:complexType name="Accommodation">
         <xs:sequence>
             <xs:element name="isBooked" type="xs:boolean"/>
@@ -30,9 +29,15 @@
         </xs:sequence>
         </xs:complexType>
 
+        <xs:element name="PlanItem">
+          <xs:complexType>
+          <xs:element name="id" type="xs:string"/>
+          <xs:element name="latitude" type="xs:double"/>
+          <xs:element name="longitude" type="xs:double"/>
+        </xs:complexType>
+        </xs:element>
 
-    <xs:element name="Trip">
-        <xs:complexType>
+    <xs:complexType name="Trip">
             <xs:sequence>
                 <xs:element name="uuid" type="xs:string"/>
                 <xs:element name="name" type="xs:string"/>
@@ -42,8 +47,7 @@
                 <xs:element name="locationCountry" type="xs:string"/>
                 <xs:element name="accommodation" type="tns:Accommodation"/>
             </xs:sequence>
-        </xs:complexType>
-      </xs:element>
+      </xs:complexType>
 
       <xs:element name="viewMyTrips">
         <xs:complexType />
@@ -52,10 +56,33 @@
       <xs:element name="viewMyTripsResponse">
         <xs:complexType>
             <xs:sequence>
-            <xs:element ref="tns:Trip" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="trip" type="tns:Trip" minOccurs="0" maxOccurs="unbounded"/>
           </xs:sequence>
         </xs:complexType>
       </xs:element>
+
+      <xs:element name="viewMyPlannedItems">
+        <xs:complexType />
+      </xs:element>
+
+      <xs:element name="viewMyPlannedItemsResponse">
+        <xs:complexType>
+            <xs:sequence>
+            <xs:element ref="tns:PlanItem" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="getOrCreate">
+        <xs:complexType>
+            <xs:sequence>
+            <xs:element name="tripName" type="xs:string" minOccurs="1" maxOccurs="1"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="getOrCreateResponse" type="tns:Trip"/>
+
     </xs:schema>
   </types>
 
@@ -67,14 +94,38 @@
       <part name = "parameters" element = "tns:viewMyTripsResponse"/>
    </message>
 
-   <portType name="TripService">
+   <message name="viewMyPlannedItemsRequest">
+    <part name="parameters" element="tns:viewMyPlannedItems"/>
+    </message>
+
+    <message name = "viewMyPlannedItemsResponse">
+      <part name = "parameters" element = "tns:viewMyPlannedItemsResponse"/>
+   </message>
+
+   <message name="getOrCreateRequest">
+    <part name="parameters" element="tns:getOrCreate"/>
+    </message>
+
+    <message name = "getOrCreateResponse">
+      <part name = "parameters" element = "tns:getOrCreateResponse"/>
+   </message>
+
+   <portType name="TripPlannerService">
     <operation name="viewMyTrips">
       <input message="tns:viewMyTripsRequest"/>
       <output message="tns:viewMyTripsResponse"/>
     </operation>
+    <operation name="viewMyPlannedItems">
+      <input message="tns:viewMyPlannedItemsRequest"/>
+      <output message="tns:viewMyPlannedItemsResponse"/>
+    </operation>
+    <operation name="getOrCreate">
+      <input message="tns:getOrCreateRequest"/>
+      <output message="tns:getOrCreateResponse"/>
+    </operation>
   </portType>
 
-  <binding name="TripServiceSOAP" type="tns:TripService">
+  <binding name="TripPlannerServiceSOAP" type="tns:TripPlannerService">
     <soap:binding style="document"
                   transport="http://schemas.xmlsoap.org/soap/http"/>
     <operation name="viewMyTrips">
@@ -86,10 +137,28 @@
         <soap:body use="literal"/>
       </output>
     </operation>
+    <operation name="viewMyPlannedItems">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="getOrCreate">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
   </binding>
 
-  <service name="TripService">
-    <port binding="tns:TripServiceSOAP" name="TripServiceSOAP">
+  <service name="TripPlannerService">
+    <port binding="tns:TripPlannerServiceSOAP" name="TripPlannerServiceSOAP">
       <soap:address location="http://127.0.0.1:8000/ITripPlanner"/>
     </port>
   </service>
