@@ -39,17 +39,17 @@ public class EventDiscoveryApi implements IEventDiscoveryApi {
         mockRomeEvents.add(museum);
     }
 
-    public List<Event> fetchNearEvents(double latitude, double longitude, double radius) {
+    public List<Event> fetchNearEvents(double latitude, double longitude, int radius) {
         return mockRomeEvents.stream().filter(event -> {
             // Return event only if it's within the provided radius (calculate from lat + long)
             return true;
         }).toList();
     }
 
-    /*public List<Event> fetchNearEvents(String geohash, double radius) {
+    public List<Event> fetchNearEventsByGeohash(String geohash, int radius) {
         return mockRomeEvents.stream().filter(event -> {
             // Return event only if it's within the provided radius (calculate from geohash)
             return event.name().length() < 10; // random condition at the moment
         }).toList();
-    }*/
+    }
 }

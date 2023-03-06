@@ -17,14 +17,14 @@ public interface IEventDiscoveryApi {
     List<Event> fetchNearEvents(
             @WebParam(name = "lat") double latitude,
             @WebParam(name = "long") double longitude,
-            @WebParam(name = "radius") double radius
+            @WebParam(name = "radius") int radius
     );
 
-    /*@jakarta.jws.WebMethod
-    List<Event> fetchNearEvents(
+    @jakarta.jws.WebMethod
+    List<Event> fetchNearEventsByGeohash(
             @WebParam(name = "geohash") String geohash,
-            @WebParam(name = "radius") double radius
-    );*/
+            @WebParam(name = "radius") int radius
+    );
 
 
 }
