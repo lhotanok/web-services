@@ -29,13 +29,11 @@
         </xs:sequence>
         </xs:complexType>
 
-        <xs:element name="PlanItem">
-          <xs:complexType>
+        <xs:complexType name="PlanItem">
           <xs:element name="id" type="xs:string"/>
           <xs:element name="latitude" type="xs:double"/>
           <xs:element name="longitude" type="xs:double"/>
         </xs:complexType>
-        </xs:element>
 
     <xs:complexType name="Trip">
             <xs:sequence>
@@ -46,6 +44,26 @@
                 <xs:element name="locationCity" type="xs:string"/>
                 <xs:element name="locationCountry" type="xs:string"/>
                 <xs:element name="accommodation" type="tns:Accommodation"/>
+            </xs:sequence>
+      </xs:complexType>
+
+      <xs:complexType name="CalendarItem">
+        <xs:sequence>
+                <xs:element name="planItem" type="tns:PlanItem"/>
+                <xs:element name="from" type="xs:dateTime"/>
+                <xs:element name="to" type="xs:dateTime"/>
+            </xs:sequence>
+      </xs:complexType>
+
+      <xs:complexType name="Calendar">
+        <xs:sequence>
+                <xs:element name="calendarItems">
+                  <xs:complexType>
+                    <xs:sequence>
+                            <xs:element name="calendarItem" type="tns:CalendarItem"/>
+                        </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
             </xs:sequence>
       </xs:complexType>
 
@@ -68,7 +86,7 @@
       <xs:element name="viewMyPlannedItemsResponse">
         <xs:complexType>
             <xs:sequence>
-            <xs:element ref="tns:PlanItem" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="planItem" type="tns:PlanItem" minOccurs="0" maxOccurs="unbounded"/>
           </xs:sequence>
         </xs:complexType>
       </xs:element>
@@ -76,12 +94,93 @@
       <xs:element name="getOrCreate">
         <xs:complexType>
             <xs:sequence>
-            <xs:element name="tripName" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="tripName" type="xs:string"/>
           </xs:sequence>
         </xs:complexType>
       </xs:element>
 
       <xs:element name="getOrCreateResponse" type="tns:Trip"/>
+
+      <xs:element name="savePlaceItem">
+        <xs:complexType>
+            <xs:sequence>
+            <xs:element name="id" type="xs:string"/>
+            <xs:element name="lat" type="xs:double"/>
+          <xs:element name="long" type="xs:double"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="savePlaceItemResponse">
+        <xs:complexType/>
+      </xs:element>
+
+      <xs:element name="saveEventItem">
+        <xs:complexType>
+            <xs:sequence>
+            <xs:element name="id" type="xs:string"/>
+            <xs:element name="lat" type="xs:double"/>
+          <xs:element name="long" type="xs:double"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="saveEventItemResponse">
+        <xs:complexType/>
+      </xs:element>
+
+      <xs:element name="setDate">
+        <xs:complexType>
+            <xs:sequence>
+            <xs:element name="tripId" type="xs:string"/>
+            <xs:element name="dateFrom" type="xs:dateTime"/>
+          <xs:element name="dateTo" type="xs:dateTime"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="setDateResponse" type="tns:Trip"/>
+
+      <xs:element name="setLocation">
+        <xs:complexType>
+            <xs:sequence>
+            <xs:element name="tripId" type="xs:string"/>
+            <xs:element name="city" type="xs:string"/>
+          <xs:element name="country" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="setLocationResponse" type="tns:Trip"/>
+
+      <xs:element name="setAccommodation">
+        <xs:complexType>
+            <xs:sequence>
+            <xs:element name="tripId" type="xs:string"/>
+            <xs:element name="accommodation" type="tns:Accommodation"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="setAccommodationResponse" type="tns:Trip"/>
+
+      <xs:element name="addCalendarItem">
+        <xs:complexType>
+            <xs:sequence>
+            <xs:element name="item" type="tns:CalendarItem"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="addCalendarItemResponse">
+        <xs:complexType/>
+      </xs:element>
+
+      <xs:element name="planMyTrip">
+        <xs:complexType/>
+      </xs:element>
+
+      <xs:element name="planMyTripResponse" type="tns:Calendar" />
 
     </xs:schema>
   </types>
@@ -110,6 +209,62 @@
       <part name = "parameters" element = "tns:getOrCreateResponse"/>
    </message>
 
+   <message name="savePlaceItemRequest">
+    <part name="parameters" element="tns:savePlaceItem"/>
+    </message>
+
+    <message name = "savePlaceItemResponse">
+      <part name = "parameters" element = "tns:savePlaceItemResponse"/>
+   </message>
+
+   <message name="saveEventItemRequest">
+    <part name="parameters" element="tns:saveEventItem"/>
+    </message>
+
+    <message name = "saveEventItemResponse">
+      <part name = "parameters" element = "tns:saveEventItemResponse"/>
+   </message>
+
+   <message name="setDateRequest">
+    <part name="parameters" element="tns:setDate"/>
+    </message>
+
+    <message name = "setDateResponse">
+      <part name = "parameters" element = "tns:setDateResponse"/>
+   </message>
+
+   <message name="setLocationRequest">
+    <part name="parameters" element="tns:setLocation"/>
+    </message>
+
+    <message name = "setLocationResponse">
+      <part name = "parameters" element = "tns:setLocationResponse"/>
+   </message>
+
+   <message name="setAccommodationRequest">
+    <part name="parameters" element="tns:setAccommodation"/>
+    </message>
+
+    <message name = "setAccommodationResponse">
+      <part name = "parameters" element = "tns:setAccommodationResponse"/>
+   </message>
+
+   <message name="addCalendarItemRequest">
+    <part name="parameters" element="tns:addCalendarItem"/>
+    </message>
+
+    <message name = "addCalendarItemResponse">
+      <part name = "parameters" element = "tns:addCalendarItemResponse"/>
+   </message>
+
+   <message name="planMyTripRequest">
+    <part name="parameters" element="tns:planMyTrip"/>
+    </message>
+
+    <message name = "planMyTripResponse">
+      <part name = "parameters" element = "tns:planMyTripResponse"/>
+   </message>
+
    <portType name="TripPlannerService">
     <operation name="viewMyTrips">
       <input message="tns:viewMyTripsRequest"/>
@@ -122,6 +277,34 @@
     <operation name="getOrCreate">
       <input message="tns:getOrCreateRequest"/>
       <output message="tns:getOrCreateResponse"/>
+    </operation>
+    <operation name="savePlaceItem">
+      <input message="tns:savePlaceItemRequest"/>
+      <output message="tns:savePlaceItemResponse"/>
+    </operation>
+    <operation name="saveEventItem">
+      <input message="tns:saveEventItemRequest"/>
+      <output message="tns:saveEventItemResponse"/>
+    </operation>
+    <operation name="setDate">
+      <input message="tns:setDateRequest"/>
+      <output message="tns:setDateResponse"/>
+    </operation>
+    <operation name="setLocation">
+      <input message="tns:setLocationRequest"/>
+      <output message="tns:setLocationResponse"/>
+    </operation>
+    <operation name="setAccommodation">
+      <input message="tns:setAccommodationRequest"/>
+      <output message="tns:setAccommodationResponse"/>
+    </operation>
+    <operation name="addCalendarItem">
+      <input message="tns:addCalendarItemRequest"/>
+      <output message="tns:addCalendarItemResponse"/>
+    </operation>
+    <operation name="planMyTrip">
+      <input message="tns:planMyTripRequest"/>
+      <output message="tns:planMyTripResponse"/>
     </operation>
   </portType>
 
@@ -147,6 +330,69 @@
       </output>
     </operation>
     <operation name="getOrCreate">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="savePlaceItem">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="saveEventItem">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="setDate">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="setLocation">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="setAccommodation">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="addCalendarItem">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="planMyTrip">
       <soap:operation soapAction=""/>
       <input>
         <soap:body use="literal"/>
