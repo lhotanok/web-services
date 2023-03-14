@@ -25,8 +25,6 @@ public interface IEventDiscoveryApi {
             @WebParam(name = "geohash") String geohash,
             @WebParam(name = "radius") int radius
     );
-
-
 }
 
 
