@@ -21,11 +21,14 @@ public class TripPlanner implements ITripPlanner {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss z");
 
     static {
-        Date dateFrom, dateTo;
+        Date dateFrom, dateTo, secondDateFrom, secondDateTo;
 
         try {
             dateFrom = dateFormat.parse ( "2023-05-01" );
             dateTo = dateFormat.parse("2023-05-05");
+
+            secondDateFrom = dateFormat.parse ( "2023-08-12" );
+            secondDateTo = dateFormat.parse("2023-08-20");
 
         } catch (ParseException e) {
             throw new IllegalArgumentException(e);
@@ -42,7 +45,19 @@ public class TripPlanner implements ITripPlanner {
                 .setAccommodation(mockAccommodation)
                 ;
 
+        Accommodation secondMockAccommodation = new Accommodation(true)
+                .setName("Hotel MH Peniche")
+                .setAddress(new Address("Av. Monsenhor Bastos, 2520-206", "Peniche", "Portugal"))
+                ;
+
+        Trip secondMockTrip = new Trip("Surfing in Portugal")
+                .setDate(secondDateFrom, secondDateTo)
+                .setLocation("Peniche", "Portugal")
+                .setAccommodation(secondMockAccommodation)
+                ;
+
         mockTrips.put(mockTrip.id(), mockTrip);
+        mockTrips.put(secondMockTrip.id(), secondMockTrip);
     }
 
     static {
