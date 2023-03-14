@@ -20,43 +20,47 @@ public interface ITripPlanner {
 
     @jakarta.jws.WebMethod
     void savePlaceItem(
-            @WebParam(name = "id") UUID uuid,
-            @WebParam(name = "lat") double latitude,
-            @WebParam(name = "long") double longitude
+            @WebParam(name = "id", targetNamespace = "http://trip_planner.example.org/") UUID uuid,
+            @WebParam(name = "lat", targetNamespace = "http://trip_planner.example.org/") double latitude,
+            @WebParam(name = "long", targetNamespace = "http://trip_planner.example.org/") double longitude
     );
 
     @jakarta.jws.WebMethod
     void saveEventItem(
-            @WebParam(name = "id") UUID uuid,
-            @WebParam(name = "lat") double latitude,
-            @WebParam(name = "long") double longitude
+            @WebParam(name = "id", targetNamespace = "http://trip_planner.example.org/") UUID uuid,
+            @WebParam(name = "lat", targetNamespace = "http://trip_planner.example.org/") double latitude,
+            @WebParam(name = "long", targetNamespace = "http://trip_planner.example.org/") double longitude
     );
 
     @jakarta.jws.WebMethod
-    Trip getOrCreate(@WebParam(name = "tripName") String tripName);
+    Trip getOrCreate(
+            @WebParam(name = "tripName", targetNamespace = "http://trip_planner.example.org/") String tripName
+    );
 
     @jakarta.jws.WebMethod
     Trip setDate(
-            @WebParam(name = "tripId") UUID tripId,
-            @WebParam(name = "dateFrom") Date dateFrom,
-            @WebParam(name = "dateTo")  Date dateTo
+            @WebParam(name = "tripId", targetNamespace = "http://trip_planner.example.org/") UUID tripId,
+            @WebParam(name = "dateFrom", targetNamespace = "http://trip_planner.example.org/") Date dateFrom,
+            @WebParam(name = "dateTo", targetNamespace = "http://trip_planner.example.org/")  Date dateTo
     );
 
     @jakarta.jws.WebMethod
     Trip setLocation(
-            @WebParam(name = "tripId") UUID tripId,
-            @WebParam(name = "city") String city,
-            @WebParam(name = "country") String country
+            @WebParam(name = "tripId", targetNamespace = "http://trip_planner.example.org/") UUID tripId,
+            @WebParam(name = "city", targetNamespace = "http://trip_planner.example.org/") String city,
+            @WebParam(name = "country", targetNamespace = "http://trip_planner.example.org/") String country
     );
 
     @jakarta.jws.WebMethod
     Trip setAccommodation(
-            @WebParam(name = "tripId") UUID tripId,
-            @WebParam(name = "accommodation") Accommodation accommodation
+            @WebParam(name = "tripId", targetNamespace = "http://trip_planner.example.org/") UUID tripId,
+            @WebParam(name = "accommodation", targetNamespace = "http://trip_planner.example.org/") Accommodation accommodation
     );
 
     @jakarta.jws.WebMethod
-    void addCalendarItem(@WebParam(name = "item") CalendarItem item);
+    void addCalendarItem(
+            @WebParam(name = "item", targetNamespace = "http://trip_planner.example.org/") CalendarItem item
+    );
 }
 
 
