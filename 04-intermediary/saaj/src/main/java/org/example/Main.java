@@ -88,7 +88,6 @@ public class Main {
                 printNodes(nextSibling.getChildNodes());
                 nextSibling = nextSibling.getNextSibling();
             }
-
         }
     }
 

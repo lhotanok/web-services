@@ -9,6 +9,7 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import jakarta.xml.soap.*;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import javax.xml.namespace.QName;
 
@@ -45,12 +46,38 @@ public class TripPlannerServlet extends HttpServlet {
         SOAPMessage response = soapc.call(soapm, endpoint);
 
         if (Objects.equals(lowercaseAttribute.getNodeValue(), "true")) {
+            convertTextContentToLowercase(response);
             addLowercaseInfoHeader(response);
         }
 
         soapc.close();
 
         return response;
+    }
+
+    private static void convertTextContentToLowercase(NodeList nodes) {
+        for (int i = 0; i < nodes.getLength(); i++) {
+            Node node = nodes.item(i);
+            if (node.hasChildNodes()) {
+                convertTextContentToLowercase(node.getChildNodes());
+            } else {
+                node.setTextContent(node.getTextContent().toLowerCase());
+            }
+        }
+    }
+
+    private static void convertTextContentToLowercase(SOAPMessage response) throws SOAPException {
+        SOAPBody responseBody = response.getSOAPBody();
+
+        if (responseBody.hasFault()) {
+            System.out.println(responseBody.getFault().getFaultString());
+        } else {
+            responseBody.getChildElements().forEachRemaining(child -> {
+                if (child.hasChildNodes()) {
+                    convertTextContentToLowercase(child.getChildNodes());
+                }
+            });
+        }
     }
 
     private static void addLowercaseInfoHeader(SOAPMessage response) throws SOAPException {
