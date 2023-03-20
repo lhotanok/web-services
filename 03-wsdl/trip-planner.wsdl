@@ -26,9 +26,11 @@
 				</xs:sequence>
 			</xs:complexType>
 			<xs:complexType name="PlanItem">
-				<xs:element name="id" type="xs:string"/>
-				<xs:element name="latitude" type="xs:double"/>
-				<xs:element name="longitude" type="xs:double"/>
+				<xs:sequence>
+					<xs:element name="id" type="xs:string"/>
+					<xs:element name="latitude" type="xs:double"/>
+					<xs:element name="longitude" type="xs:double"/>
+				</xs:sequence>
 			</xs:complexType>
 			<xs:complexType name="Trip">
 				<xs:sequence>
