@@ -2,20 +2,15 @@ package org;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.*;
 
-import javax.jws.WebService;
-
-@WebService(targetNamespace = "http://trip_planner.example.org/", endpointInterface = "org.ITripPlanner", portName = "TripPlannerPort", serviceName = "TripPlannerService")
+@SuppressWarnings("deprecation")
 public class TripPlanner implements ITripPlanner {
-    private static final Map<UUID, Trip> mockTrips = new HashMap<>();
-    private static final Map<UUID, PlanItem> mockPlannedItems = new HashMap<>();
+    private static final Map<String, Trip> mockTrips = new HashMap<>();
+    private static final Map<String, PlanItem> mockPlannedItems = new HashMap<>();
     private static final Calendar mockCalendar = new Calendar();
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss z");
 
     static {
         Date dateFrom, dateTo, secondDateFrom, secondDateTo;
@@ -58,33 +53,33 @@ public class TripPlanner implements ITripPlanner {
     }
 
     static {
-        ZonedDateTime dateTimeConcertFrom, dateTimeConcertTo, dateTimeCinemaFrom, dateTimeCinemaTo;
+    	Date dateTimeConcertFrom, dateTimeConcertTo, dateTimeCinemaFrom, dateTimeCinemaTo;
 
         try {
-            dateTimeConcertFrom = ZonedDateTime.parse("2023-05-01 20:00:00 Europe/Rome", formatter);
-            dateTimeConcertTo = ZonedDateTime.parse("2023-05-01 21:30:00 Europe/Rome", formatter);
+            dateTimeConcertFrom = new Date("2023-05-01 20:00:00 Europe/Rome");
+            dateTimeConcertTo = new Date("2023-05-01 21:30:00 Europe/Rome");
 
-            dateTimeCinemaFrom = ZonedDateTime.parse("2023-05-02 19:30:00 Europe/Rome", formatter);
-            dateTimeCinemaTo = ZonedDateTime.parse("2023-05-02 23:00:00 Europe/Rome", formatter);
+            dateTimeCinemaFrom = new Date("2023-05-02 19:30:00 Europe/Rome");
+            dateTimeCinemaTo = new Date("2023-05-02 23:00:00 Europe/Rome");
         } catch (DateTimeParseException e) {
             throw new IllegalArgumentException(e);
         }
 
         EventItem eventConcert = new EventItem(
-                UUID.fromString("42cf722b-8be7-496e-80a6-3cb4a82f1ff0"),
+                "42cf722b-8be7-496e-80a6-3cb4a82f1ff0",
                 41.9027835,
                 12.4963655
         )
                 .setDate(dateTimeConcertFrom, dateTimeConcertTo);
 
         EventItem eventCinema = new EventItem(
-                UUID.fromString("42a96db0-1316-468c-96ec-44b50396678a"),
+                "42a96db0-1316-468c-96ec-44b50396678a",
                 41.9617835,
                 12.1263655
         )
                 .setDate(dateTimeCinemaFrom, dateTimeCinemaTo);
 
-        PlanItem placeRestaurant = new PlaceItem(UUID.randomUUID(), 41.9004881, 12.4686586);
+        PlanItem placeRestaurant = new PlaceItem(UUID.randomUUID().toString(), 41.9004881, 12.4686586);
 
         mockPlannedItems.put(eventConcert.id, eventConcert);
         mockPlannedItems.put(eventCinema.id, eventCinema);
@@ -92,11 +87,11 @@ public class TripPlanner implements ITripPlanner {
     }
 
     public Trip[] viewMyTrips() {
-        return (Trip[]) mockTrips.values().stream().toArray();
+        return (Trip[]) mockTrips.values().toArray();
     }
 
     public PlanItem[] viewMyPlannedItems() {
-        return (PlanItem[]) mockPlannedItems.values().stream().toArray();
+        return (PlanItem[]) mockPlannedItems.values().toArray();
     }
 
     public Calendar planMyTrip() {
@@ -110,8 +105,8 @@ public class TripPlanner implements ITripPlanner {
                 );
             } else {
                 // pick some free slot
-                ZonedDateTime randomFromDateTime = ZonedDateTime.parse("2023-05-03 12:30:00 Europe/Rome", formatter);
-                ZonedDateTime randomToDateTime = ZonedDateTime.parse("2023-05-03 13:30:00 Europe/Rome", formatter);
+                Date randomFromDateTime = new Date("2023-05-03 12:30:00 Europe/Rome");
+                Date randomToDateTime = new Date("2023-05-03 13:30:00 Europe/Rome");
 
                 plannedItems.add(
                         new CalendarItem(item, randomFromDateTime, randomToDateTime)
@@ -122,12 +117,12 @@ public class TripPlanner implements ITripPlanner {
         return new Calendar(plannedItems);
     }
 
-    public void savePlaceItem(UUID uuid, double latitude, double longitude) {
+    public void savePlaceItem(String uuid, double latitude, double longitude) {
         PlaceItem place = new PlaceItem(uuid, latitude, longitude);
         mockPlannedItems.put(uuid, place);
     }
 
-    public void saveEventItem(UUID uuid, double latitude, double longitude) {
+    public void saveEventItem(String uuid, double latitude, double longitude) {
         EventItem event = new EventItem(uuid, latitude, longitude);
         mockPlannedItems.put(uuid, event);
     }
@@ -149,28 +144,28 @@ public class TripPlanner implements ITripPlanner {
         return newTrip;
     }
 
-    public Trip setDate(UUID tripId, Date dateFrom, Date dateTo) {
+    public Trip setDate(String tripId, Date dateFrom, Date dateTo) {
         Trip trip = tryGetTrip(tripId);
         trip.setDate(dateFrom, dateTo);
 
         return trip;
     }
 
-    public Trip setLocation(UUID tripId, String city, String country) {
+    public Trip setLocation(String tripId, String city, String country) {
         Trip trip = tryGetTrip(tripId);
         trip.setLocation(city, country);
 
         return trip;
     }
 
-    public Trip setAccommodation(UUID tripId, Accommodation accommodation) {
+    public Trip setAccommodation(String tripId, Accommodation accommodation) {
         Trip trip = tryGetTrip(tripId);
         trip.setAccommodation(accommodation);
 
         return trip;
     }
 
-    private Trip tryGetTrip(UUID tripId) {
+    private Trip tryGetTrip(String tripId) {
         if (!mockTrips.containsKey(tripId)) {
             throw new IllegalArgumentException("No trip found for uuid: " + tripId);
         }

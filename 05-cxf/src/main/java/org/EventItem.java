@@ -1,25 +1,28 @@
 package org;
 
-import java.time.ZonedDateTime;
-import java.util.UUID;
+import java.util.Date;
 
 public class EventItem extends PlanItem {
-    private ZonedDateTime dateTimeFrom;
-    private ZonedDateTime dateTimeTo;
+    private Date dateTimeFrom;
+    private Date dateTimeTo;
+    
+    public EventItem() {
+    	super();
+    }
 
-    public EventItem(UUID uuid, double latitude, double longitude) {
+    public EventItem(String uuid, double latitude, double longitude) {
         super(uuid, latitude, longitude);
     }
 
-    public ZonedDateTime from() {
+    public Date from() {
         return dateTimeFrom;
     }
 
-    public ZonedDateTime to() {
+    public Date to() {
         return dateTimeTo;
     }
 
-    public EventItem setDate(ZonedDateTime dateTimeFrom, ZonedDateTime dateTimeTo) {
+    public EventItem setDate(Date dateTimeFrom, Date dateTimeTo) {
         this.dateTimeFrom = dateTimeFrom;
         this.dateTimeTo = dateTimeTo;
 

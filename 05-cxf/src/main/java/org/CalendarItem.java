@@ -1,13 +1,15 @@
 package org;
 
-import java.time.ZonedDateTime;
+import java.util.Date;
 
 public class CalendarItem {
-	public final PlanItem planItem;
-    public final ZonedDateTime from;
-    public final ZonedDateTime to;
+	public PlanItem planItem;
+    public Date from;
+    public Date to;
+    
+    public CalendarItem() {}
 
-    public CalendarItem(PlanItem item, ZonedDateTime from, ZonedDateTime to) {
+    public CalendarItem(PlanItem item, Date from, Date to) {
         this.planItem = item;
         this.from = from;
         this.to = to;

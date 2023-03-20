@@ -1,26 +1,33 @@
 package org;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Calendar {
-	private final List<CalendarItem> calendarItems;
+	private CalendarItem[] calendarItems;
 
     public Calendar() {
-        this.calendarItems = new ArrayList<>();
+        this.calendarItems = new CalendarItem[0];
     }
 
     public Calendar(List<CalendarItem> calendarItems) {
-        this.calendarItems = calendarItems;
+        this.calendarItems = calendarItems.toArray(new CalendarItem[0]);
     }
 
-    public Calendar addItem(CalendarItem item) {
-        calendarItems.add(item);
+    public Calendar addItem(CalendarItem item) {        
+        int i;
+        
+        CalendarItem updatedItems[] = new CalendarItem[calendarItems.length + 1];
+    
+        for (i = 0; i < calendarItems.length; i++)
+        	updatedItems[i] = calendarItems[i];
+    
+        updatedItems[calendarItems.length] = item;
+    
 
         return this;
     }
 
-    public List<CalendarItem> getItems() {
+    public CalendarItem[] getItems() {
         return calendarItems;
     }
 }

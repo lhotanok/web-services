@@ -4,6 +4,8 @@ public class Accommodation {
 	private boolean isBooked;
     private String name;
     private Address address;
+    
+    public Accommodation() {}
 
     public Accommodation(boolean isBooked) {
         this.isBooked = isBooked;

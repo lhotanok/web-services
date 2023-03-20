@@ -1,12 +1,14 @@
 package org;
 
-import java.util.UUID;
 
-public abstract class PlanItem {
-	public final UUID id;
-    public final double latitude;
-    public final double longitude;
-    public PlanItem(UUID uuid, double latitude, double longitude) {
+public class PlanItem {
+	public String id;
+    public double latitude;
+    public double longitude;
+    
+    public PlanItem() {}
+    
+    public PlanItem(String uuid, double latitude, double longitude) {
         this.id = uuid;
         this.latitude = latitude;
         this.longitude = longitude;

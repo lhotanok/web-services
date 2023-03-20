@@ -4,24 +4,26 @@ import java.util.Date;
 import java.util.UUID;
 
 public class Trip {
-	private final UUID uuid;
+	private String uuid;
     private String name;
     private Date dateFrom;
     private Date dateTo;
     private String locationCity;
     private String locationCountry;
     private Accommodation accommodation;
+    
+    public Trip() {}
     public Trip(String name) {
         this.name = name;
-        this.uuid = UUID.nameUUIDFromBytes(name.getBytes());
+        this.uuid = UUID.nameUUIDFromBytes(name.getBytes()).toString();
     }
 
-    public Trip(String name, UUID uuid) {
+    public Trip(String name, String uuid) {
         this.name = name;
         this.uuid = uuid;
     }
 
-    public UUID id() {
+    public String id() {
         return this.uuid;
     }
 
