@@ -2,25 +2,40 @@ package org;
 
 import java.util.Date;
 
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
+import javax.jws.WebService;
+
+@WebService(name = "ITripPlanner", targetNamespace = "http://org/")
 public interface ITripPlanner {
-    Trip[] viewMyTrips();
+    @WebMethod(operationName = "viewMyTrips", action = "urn:ViewMyTrips")
+	Trip[] viewMyTrips();
 
-    PlanItem[] viewMyPlannedItems();
+    @WebMethod(operationName = "viewMyPlannedItems", action = "urn:ViewMyPlannedItems")
+	PlanItem[] viewMyPlannedItems();
 
-    Calendar planMyTrip();
+    @WebMethod(operationName = "planMyTrip", action = "urn:PlanMyTrip")
+	Calendar planMyTrip();
 
-    void savePlaceItem(String uuid, double latitude, double longitude);
+    @WebMethod(operationName = "savePlaceItem", action = "urn:SavePlaceItem")
+	void savePlaceItem(@WebParam(name = "arg0") String uuid, @WebParam(name = "arg1") double latitude, @WebParam(name = "arg2") double longitude);
 
-    void saveEventItem(String uuid, double latitude, double longitude);
+    @WebMethod(operationName = "saveEventItem", action = "urn:SaveEventItem")
+	void saveEventItem(@WebParam(name = "arg0") String uuid, @WebParam(name = "arg1") double latitude, @WebParam(name = "arg2") double longitude);
 
-    Trip getOrCreate(String tripName);
+    @WebMethod(operationName = "getOrCreate", action = "urn:GetOrCreate")
+	Trip getOrCreate(@WebParam(name = "arg0") String tripName);
 
-    Trip setDate(String tripId, Date dateFrom, Date dateTo);
+    @WebMethod(operationName = "setDate", action = "urn:SetDate")
+	Trip setDate(@WebParam(name = "arg0") String tripId, @WebParam(name = "arg1") Date dateFrom, @WebParam(name = "arg2") Date dateTo);
 
-    Trip setLocation(String tripId, String city, String country);
+    @WebMethod(operationName = "setLocation", action = "urn:SetLocation")
+	Trip setLocation(@WebParam(name = "arg0") String tripId, @WebParam(name = "arg1") String city, @WebParam(name = "arg2") String country);
 
-    Trip setAccommodation(String tripId, Accommodation accommodation);
+    @WebMethod(operationName = "setAccommodation", action = "urn:SetAccommodation")
+	Trip setAccommodation(@WebParam(name = "arg0") String tripId, @WebParam(name = "arg1") Accommodation accommodation);
 
-    void addCalendarItem(CalendarItem item);
+    @WebMethod(operationName = "addCalendarItem", action = "urn:AddCalendarItem")
+	void addCalendarItem(@WebParam(name = "arg0") CalendarItem item);
 
 }

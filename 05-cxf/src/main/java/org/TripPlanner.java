@@ -5,6 +5,9 @@ import java.text.SimpleDateFormat;
 import java.time.format.DateTimeParseException;
 import java.util.*;
 
+import javax.jws.WebService;
+
+@WebService(targetNamespace = "http://org/", endpointInterface = "org.ITripPlanner", portName = "TripPlannerPort", serviceName = "TripPlannerService")
 @SuppressWarnings("deprecation")
 public class TripPlanner implements ITripPlanner {
     private static final Map<String, Trip> mockTrips = new HashMap<>();

@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="TripPlannerService" targetNamespace="http://org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://org/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <schema xmlns="http://www.w3.org/2001/XMLSchema">
+  <import namespace="http://org/" schemaLocation="tripplanner_schema1.xsd"/>
+</schema>
+  </wsdl:types>
+  <wsdl:message name="viewMyTripsResponse">
+    <wsdl:part name="parameters" element="tns:viewMyTripsResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="viewMyPlannedItems">
+    <wsdl:part name="parameters" element="tns:viewMyPlannedItems">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addCalendarItem">
+    <wsdl:part name="parameters" element="tns:addCalendarItem">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="saveEventItemResponse">
+    <wsdl:part name="parameters" element="tns:saveEventItemResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="planMyTripResponse">
+    <wsdl:part name="parameters" element="tns:planMyTripResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="saveEventItem">
+    <wsdl:part name="parameters" element="tns:saveEventItem">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addCalendarItemResponse">
+    <wsdl:part name="parameters" element="tns:addCalendarItemResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="savePlaceItemResponse">
+    <wsdl:part name="parameters" element="tns:savePlaceItemResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="planMyTrip">
+    <wsdl:part name="parameters" element="tns:planMyTrip">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setAccommodation">
+    <wsdl:part name="parameters" element="tns:setAccommodation">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setLocationResponse">
+    <wsdl:part name="parameters" element="tns:setLocationResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setDateResponse">
+    <wsdl:part name="parameters" element="tns:setDateResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="savePlaceItem">
+    <wsdl:part name="parameters" element="tns:savePlaceItem">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setLocation">
+    <wsdl:part name="parameters" element="tns:setLocation">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setAccommodationResponse">
+    <wsdl:part name="parameters" element="tns:setAccommodationResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOrCreate">
+    <wsdl:part name="parameters" element="tns:getOrCreate">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setDate">
+    <wsdl:part name="parameters" element="tns:setDate">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="viewMyTrips">
+    <wsdl:part name="parameters" element="tns:viewMyTrips">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="viewMyPlannedItemsResponse">
+    <wsdl:part name="parameters" element="tns:viewMyPlannedItemsResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOrCreateResponse">
+    <wsdl:part name="parameters" element="tns:getOrCreateResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ITripPlanner">
+    <wsdl:operation name="setAccommodation">
+      <wsdl:input name="setAccommodation" message="tns:setAccommodation">
+    </wsdl:input>
+      <wsdl:output name="setAccommodationResponse" message="tns:setAccommodationResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="savePlaceItem">
+      <wsdl:input name="savePlaceItem" message="tns:savePlaceItem">
+    </wsdl:input>
+      <wsdl:output name="savePlaceItemResponse" message="tns:savePlaceItemResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="viewMyPlannedItems">
+      <wsdl:input name="viewMyPlannedItems" message="tns:viewMyPlannedItems">
+    </wsdl:input>
+      <wsdl:output name="viewMyPlannedItemsResponse" message="tns:viewMyPlannedItemsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setLocation">
+      <wsdl:input name="setLocation" message="tns:setLocation">
+    </wsdl:input>
+      <wsdl:output name="setLocationResponse" message="tns:setLocationResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addCalendarItem">
+      <wsdl:input name="addCalendarItem" message="tns:addCalendarItem">
+    </wsdl:input>
+      <wsdl:output name="addCalendarItemResponse" message="tns:addCalendarItemResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getOrCreate">
+      <wsdl:input name="getOrCreate" message="tns:getOrCreate">
+    </wsdl:input>
+      <wsdl:output name="getOrCreateResponse" message="tns:getOrCreateResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setDate">
+      <wsdl:input name="setDate" message="tns:setDate">
+    </wsdl:input>
+      <wsdl:output name="setDateResponse" message="tns:setDateResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="viewMyTrips">
+      <wsdl:input name="viewMyTrips" message="tns:viewMyTrips">
+    </wsdl:input>
+      <wsdl:output name="viewMyTripsResponse" message="tns:viewMyTripsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="saveEventItem">
+      <wsdl:input name="saveEventItem" message="tns:saveEventItem">
+    </wsdl:input>
+      <wsdl:output name="saveEventItemResponse" message="tns:saveEventItemResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="planMyTrip">
+      <wsdl:input name="planMyTrip" message="tns:planMyTrip">
+    </wsdl:input>
+      <wsdl:output name="planMyTripResponse" message="tns:planMyTripResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="TripPlannerServiceSoapBinding" type="tns:ITripPlanner">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="setAccommodation">
+      <soap:operation soapAction="urn:SetAccommodation" style="document"/>
+      <wsdl:input name="setAccommodation">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="setAccommodationResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="savePlaceItem">
+      <soap:operation soapAction="urn:SavePlaceItem" style="document"/>
+      <wsdl:input name="savePlaceItem">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="savePlaceItemResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="viewMyPlannedItems">
+      <soap:operation soapAction="urn:ViewMyPlannedItems" style="document"/>
+      <wsdl:input name="viewMyPlannedItems">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="viewMyPlannedItemsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setLocation">
+      <soap:operation soapAction="urn:SetLocation" style="document"/>
+      <wsdl:input name="setLocation">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="setLocationResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addCalendarItem">
+      <soap:operation soapAction="urn:AddCalendarItem" style="document"/>
+      <wsdl:input name="addCalendarItem">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="addCalendarItemResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getOrCreate">
+      <soap:operation soapAction="urn:GetOrCreate" style="document"/>
+      <wsdl:input name="getOrCreate">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getOrCreateResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setDate">
+      <soap:operation soapAction="urn:SetDate" style="document"/>
+      <wsdl:input name="setDate">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="setDateResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="viewMyTrips">
+      <soap:operation soapAction="urn:ViewMyTrips" style="document"/>
+      <wsdl:input name="viewMyTrips">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="viewMyTripsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="saveEventItem">
+      <soap:operation soapAction="urn:SaveEventItem" style="document"/>
+      <wsdl:input name="saveEventItem">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="saveEventItemResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="planMyTrip">
+      <soap:operation soapAction="urn:PlanMyTrip" style="document"/>
+      <wsdl:input name="planMyTrip">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="planMyTripResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TripPlannerService">
+    <wsdl:port name="TripPlannerPort" binding="tns:TripPlannerServiceSoapBinding">
+      <soap:address location="http://localhost:8080/trip-planner/services/TripPlannerPort"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

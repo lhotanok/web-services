@@ -1,0 +1,188 @@
+<xs:schema xmlns:tns="http://org/" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified" targetNamespace="http://org/" version="1.0">
+
+  <xs:element name="addCalendarItem" type="tns:addCalendarItem"/>
+
+  <xs:element name="addCalendarItemResponse" type="tns:addCalendarItemResponse"/>
+
+  <xs:element name="getOrCreate" type="tns:getOrCreate"/>
+
+  <xs:element name="getOrCreateResponse" type="tns:getOrCreateResponse"/>
+
+  <xs:element name="planMyTrip" type="tns:planMyTrip"/>
+
+  <xs:element name="planMyTripResponse" type="tns:planMyTripResponse"/>
+
+  <xs:element name="saveEventItem" type="tns:saveEventItem"/>
+
+  <xs:element name="saveEventItemResponse" type="tns:saveEventItemResponse"/>
+
+  <xs:element name="savePlaceItem" type="tns:savePlaceItem"/>
+
+  <xs:element name="savePlaceItemResponse" type="tns:savePlaceItemResponse"/>
+
+  <xs:element name="setAccommodation" type="tns:setAccommodation"/>
+
+  <xs:element name="setAccommodationResponse" type="tns:setAccommodationResponse"/>
+
+  <xs:element name="setDate" type="tns:setDate"/>
+
+  <xs:element name="setDateResponse" type="tns:setDateResponse"/>
+
+  <xs:element name="setLocation" type="tns:setLocation"/>
+
+  <xs:element name="setLocationResponse" type="tns:setLocationResponse"/>
+
+  <xs:element name="viewMyPlannedItems" type="tns:viewMyPlannedItems"/>
+
+  <xs:element name="viewMyPlannedItemsResponse" type="tns:viewMyPlannedItemsResponse"/>
+
+  <xs:element name="viewMyTrips" type="tns:viewMyTrips"/>
+
+  <xs:element name="viewMyTripsResponse" type="tns:viewMyTripsResponse"/>
+
+  <xs:complexType name="setAccommodation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+      <xs:element minOccurs="0" name="arg1" type="tns:accommodation"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="accommodation">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="setAccommodationResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:trip"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="trip">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="savePlaceItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+      <xs:element name="arg1" type="xs:double"/>
+      <xs:element name="arg2" type="xs:double"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="savePlaceItemResponse">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="viewMyPlannedItems">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="viewMyPlannedItemsResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:planItem"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="planItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="xs:string"/>
+      <xs:element name="latitude" type="xs:double"/>
+      <xs:element name="longitude" type="xs:double"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="setLocation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+      <xs:element minOccurs="0" name="arg1" type="xs:string"/>
+      <xs:element minOccurs="0" name="arg2" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="setLocationResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:trip"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="addCalendarItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="tns:calendarItem"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="calendarItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="planItem" type="tns:planItem"/>
+      <xs:element minOccurs="0" name="from" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="to" type="xs:dateTime"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="addCalendarItemResponse">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="getOrCreate">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getOrCreateResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:trip"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="setDate">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+      <xs:element minOccurs="0" name="arg1" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="arg2" type="xs:dateTime"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="setDateResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:trip"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="viewMyTrips">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="viewMyTripsResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:trip"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="saveEventItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+      <xs:element name="arg1" type="xs:double"/>
+      <xs:element name="arg2" type="xs:double"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="saveEventItemResponse">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="planMyTrip">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="planMyTripResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:calendar"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="calendar">
+    <xs:sequence/>
+  </xs:complexType>
+
+</xs:schema>
