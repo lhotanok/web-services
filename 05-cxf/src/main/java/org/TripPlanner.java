@@ -8,12 +8,12 @@ import java.util.*;
 import javax.jws.WebService;
 
 @WebService(targetNamespace = "http://org/", endpointInterface = "org.ITripPlanner", portName = "TripPlannerPort", serviceName = "TripPlannerService")
-@SuppressWarnings("deprecation")
 public class TripPlanner implements ITripPlanner {
     private static final Map<String, Trip> mockTrips = new HashMap<>();
     private static final Map<String, PlanItem> mockPlannedItems = new HashMap<>();
     private static final Calendar mockCalendar = new Calendar();
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private static final SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
     static {
         Date dateFrom, dateTo, secondDateFrom, secondDateTo;
@@ -59,12 +59,12 @@ public class TripPlanner implements ITripPlanner {
     	Date dateTimeConcertFrom, dateTimeConcertTo, dateTimeCinemaFrom, dateTimeCinemaTo;
 
         try {
-            dateTimeConcertFrom = new Date("2023-05-01 20:00:00 Europe/Rome");
-            dateTimeConcertTo = new Date("2023-05-01 21:30:00 Europe/Rome");
+            dateTimeConcertFrom = dateTimeFormat.parse("2023-05-01T20:00:00.000Z");
+            dateTimeConcertTo = dateTimeFormat.parse("2023-05-01T21:30:00.000Z");
 
-            dateTimeCinemaFrom = new Date("2023-05-02 19:30:00 Europe/Rome");
-            dateTimeCinemaTo = new Date("2023-05-02 23:00:00 Europe/Rome");
-        } catch (DateTimeParseException e) {
+            dateTimeCinemaFrom = dateTimeFormat.parse("2023-05-02T19:30:00.000Z");
+            dateTimeCinemaTo = dateTimeFormat.parse("2023-05-02T23:00:00.000Z");
+        } catch (ParseException e) {
             throw new IllegalArgumentException(e);
         }
 
@@ -108,12 +108,16 @@ public class TripPlanner implements ITripPlanner {
                 );
             } else {
                 // pick some free slot
-                Date randomFromDateTime = new Date("2023-05-03 12:30:00 Europe/Rome");
-                Date randomToDateTime = new Date("2023-05-03 13:30:00 Europe/Rome");
-
-                plannedItems.add(
-                        new CalendarItem(item, randomFromDateTime, randomToDateTime)
-                );
+            	try {
+            		Date randomFromDateTime = dateTimeFormat.parse("2023-05-03T12:30:00.000Z");
+                    Date randomToDateTime = dateTimeFormat.parse("2023-05-03T13:30:00.000Z");
+                    
+                    plannedItems.add(
+                            new CalendarItem(item, randomFromDateTime, randomToDateTime)
+                    );
+            	} catch (ParseException e) {
+                    throw new IllegalArgumentException(e);
+                }
             }
         });
 
