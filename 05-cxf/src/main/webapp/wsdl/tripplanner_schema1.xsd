@@ -2,7 +2,7 @@
 
   <xs:element name="addCalendarItem" type="tns:addCalendarItem"/>
 
-  <xs:element name="addCalendarItemResponse" type="tns:addCalendarItemResponse"/>
+  <xs:element name="addCalendarItemResponse" type="tns:addCalendarItemResponse"></xs:element>
 
   <xs:element name="getOrCreate" type="tns:getOrCreate"/>
 
@@ -155,7 +155,8 @@
 
   <xs:complexType name="viewMyTripsResponse">
     <xs:sequence>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:trip"/>
+      <xs:element minOccurs="0" name="return" type="tns:trip"
+      	maxOccurs="unbounded" />
     </xs:sequence>
   </xs:complexType>
 

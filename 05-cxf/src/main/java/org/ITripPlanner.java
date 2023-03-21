@@ -1,6 +1,7 @@
 package org;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -9,10 +10,10 @@ import javax.jws.WebService;
 @WebService(name = "ITripPlanner", targetNamespace = "http://org/")
 public interface ITripPlanner {
     @WebMethod(operationName = "viewMyTrips", action = "urn:ViewMyTrips")
-	Trip[] viewMyTrips();
+    List<Trip> viewMyTrips();
 
     @WebMethod(operationName = "viewMyPlannedItems", action = "urn:ViewMyPlannedItems")
-	PlanItem[] viewMyPlannedItems();
+	List<PlanItem> viewMyPlannedItems();
 
     @WebMethod(operationName = "planMyTrip", action = "urn:PlanMyTrip")
 	Calendar planMyTrip();

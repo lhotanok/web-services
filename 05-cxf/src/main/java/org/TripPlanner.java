@@ -89,12 +89,24 @@ public class TripPlanner implements ITripPlanner {
         mockPlannedItems.put(placeRestaurant.id, placeRestaurant);
     }
 
-    public Trip[] viewMyTrips() {
-        return (Trip[]) mockTrips.values().toArray();
+    public List<Trip> viewMyTrips() {
+    	List<Trip> myTrips = new ArrayList<>();
+    	
+    	for (Trip trip : mockTrips.values()) {
+    		myTrips.add(trip);
+    	}
+    	
+        return myTrips;
     }
 
-    public PlanItem[] viewMyPlannedItems() {
-        return (PlanItem[]) mockPlannedItems.values().toArray();
+    public List<PlanItem> viewMyPlannedItems() {
+		List<PlanItem> myPlannedItems = new ArrayList<>();
+		    	
+    	for (PlanItem planItem : mockPlannedItems.values()) {
+    		myPlannedItems.add(planItem);
+    	}
+    	
+        return myPlannedItems;
     }
 
     public Calendar planMyTrip() {

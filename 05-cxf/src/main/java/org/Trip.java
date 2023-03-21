@@ -3,6 +3,9 @@ package org;
 import java.util.Date;
 import java.util.UUID;
 
+import javax.xml.bind.annotation.*;
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Trip {
 	private String uuid;
     private String name;

@@ -1,33 +1,28 @@
 package org;
 
+import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.*;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Calendar {
-	private CalendarItem[] calendarItems;
+    private final List<CalendarItem> calendarItems;
 
     public Calendar() {
-        this.calendarItems = new CalendarItem[0];
+        this.calendarItems = new ArrayList<>();
     }
 
     public Calendar(List<CalendarItem> calendarItems) {
-        this.calendarItems = calendarItems.toArray(new CalendarItem[0]);
+        this.calendarItems = calendarItems;
     }
 
-    public Calendar addItem(CalendarItem item) {        
-        int i;
-        
-        CalendarItem updatedItems[] = new CalendarItem[calendarItems.length + 1];
-    
-        for (i = 0; i < calendarItems.length; i++)
-        	updatedItems[i] = calendarItems[i];
-    
-        updatedItems[calendarItems.length] = item;
-    
+    public Calendar addItem(CalendarItem item) {
+        calendarItems.add(item);
 
         return this;
     }
 
-    public CalendarItem[] getItems() {
+    public List<CalendarItem> getItems() {
         return calendarItems;
     }
 }

@@ -1,7 +1,9 @@
 package org;
 
 import java.util.Date;
+import javax.xml.bind.annotation.*;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class CalendarItem {
 	public PlanItem planItem;
     public Date from;

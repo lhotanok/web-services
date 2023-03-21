@@ -242,7 +242,7 @@
   </wsdl:binding>
   <wsdl:service name="TripPlannerService">
     <wsdl:port name="TripPlannerPort" binding="tns:TripPlannerServiceSoapBinding">
-      <soap:address location="http://localhost:8080/trip-planner/services/TripPlannerPort"/>
+      <soap:address location="http://localhost:8080/trip-planner/services"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
