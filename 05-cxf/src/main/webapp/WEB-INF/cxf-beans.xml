@@ -12,5 +12,16 @@
 		<jaxws:features>
 			<bean class="org.apache.cxf.feature.LoggingFeature" />
 		</jaxws:features>
+		<jaxws:inInterceptors>
+		  <bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+		    <constructor-arg>
+		      <map>
+		        <entry key="action" value="UsernameToken"/>
+		        <entry key="passwordType" value="PasswordText"/>
+		        <entry key="passwordCallbackClass" value="org.PasswordCallback"/>
+		      </map>
+		    </constructor-arg>
+		  </bean>
+		</jaxws:inInterceptors>
 	</jaxws:endpoint>
 </beans>
