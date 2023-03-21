@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="55143395-2b2f-44bf-815d-137050be6163" activeEnvironment="Default" name="TripPlanner" resourceRoot="" soapui-version="5.7.0" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="f4066435-c70d-4d1f-9d71-d8532bb068ca" wsaVersion="NONE" name="TripPlannerServiceSoapBinding" type="wsdl" bindingName="{http://org/}TripPlannerServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080/trip-planner/services/TripPlannerPort?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080/trip-planner/services/TripPlannerPort?wsdl"><con:part><con:url>http://localhost:8080/trip-planner/services/TripPlannerPort?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="TripPlannerService" targetNamespace="http://org/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <schema xmlns="http://www.w3.org/2001/XMLSchema">
+      <import namespace="http://org/" schemaLocation="http://localhost:8080/trip-planner/services/TripPlannerPort?xsd=tripplanner_schema1.xsd"/>
+    </schema>
+  </wsdl:types>
+  <wsdl:message name="viewMyTripsResponse">
+    <wsdl:part element="tns:viewMyTripsResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="viewMyPlannedItems">
+    <wsdl:part element="tns:viewMyPlannedItems" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addCalendarItem">
+    <wsdl:part element="tns:addCalendarItem" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="saveEventItemResponse">
+    <wsdl:part element="tns:saveEventItemResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="planMyTripResponse">
+    <wsdl:part element="tns:planMyTripResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="saveEventItem">
+    <wsdl:part element="tns:saveEventItem" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addCalendarItemResponse">
+    <wsdl:part element="tns:addCalendarItemResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="savePlaceItemResponse">
+    <wsdl:part element="tns:savePlaceItemResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="planMyTrip">
+    <wsdl:part element="tns:planMyTrip" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setAccommodation">
+    <wsdl:part element="tns:setAccommodation" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setLocationResponse">
+    <wsdl:part element="tns:setLocationResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setDateResponse">
+    <wsdl:part element="tns:setDateResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="savePlaceItem">
+    <wsdl:part element="tns:savePlaceItem" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setLocation">
+    <wsdl:part element="tns:setLocation" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setAccommodationResponse">
+    <wsdl:part element="tns:setAccommodationResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOrCreate">
+    <wsdl:part element="tns:getOrCreate" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setDate">
+    <wsdl:part element="tns:setDate" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="viewMyTrips">
+    <wsdl:part element="tns:viewMyTrips" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="viewMyPlannedItemsResponse">
+    <wsdl:part element="tns:viewMyPlannedItemsResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOrCreateResponse">
+    <wsdl:part element="tns:getOrCreateResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ITripPlanner">
+    <wsdl:operation name="setAccommodation">
+      <wsdl:input message="tns:setAccommodation" name="setAccommodation"></wsdl:input>
+      <wsdl:output message="tns:setAccommodationResponse" name="setAccommodationResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="savePlaceItem">
+      <wsdl:input message="tns:savePlaceItem" name="savePlaceItem"></wsdl:input>
+      <wsdl:output message="tns:savePlaceItemResponse" name="savePlaceItemResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="viewMyPlannedItems">
+      <wsdl:input message="tns:viewMyPlannedItems" name="viewMyPlannedItems"></wsdl:input>
+      <wsdl:output message="tns:viewMyPlannedItemsResponse" name="viewMyPlannedItemsResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setLocation">
+      <wsdl:input message="tns:setLocation" name="setLocation"></wsdl:input>
+      <wsdl:output message="tns:setLocationResponse" name="setLocationResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addCalendarItem">
+      <wsdl:input message="tns:addCalendarItem" name="addCalendarItem"></wsdl:input>
+      <wsdl:output message="tns:addCalendarItemResponse" name="addCalendarItemResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getOrCreate">
+      <wsdl:input message="tns:getOrCreate" name="getOrCreate"></wsdl:input>
+      <wsdl:output message="tns:getOrCreateResponse" name="getOrCreateResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setDate">
+      <wsdl:input message="tns:setDate" name="setDate"></wsdl:input>
+      <wsdl:output message="tns:setDateResponse" name="setDateResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="viewMyTrips">
+      <wsdl:input message="tns:viewMyTrips" name="viewMyTrips"></wsdl:input>
+      <wsdl:output message="tns:viewMyTripsResponse" name="viewMyTripsResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="saveEventItem">
+      <wsdl:input message="tns:saveEventItem" name="saveEventItem"></wsdl:input>
+      <wsdl:output message="tns:saveEventItemResponse" name="saveEventItemResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="planMyTrip">
+      <wsdl:input message="tns:planMyTrip" name="planMyTrip"></wsdl:input>
+      <wsdl:output message="tns:planMyTripResponse" name="planMyTripResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="TripPlannerServiceSoapBinding" type="tns:ITripPlanner">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="setAccommodation">
+      <soap:operation soapAction="urn:SetAccommodation" style="document"/>
+      <wsdl:input name="setAccommodation">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="setAccommodationResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="savePlaceItem">
+      <soap:operation soapAction="urn:SavePlaceItem" style="document"/>
+      <wsdl:input name="savePlaceItem">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="savePlaceItemResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="viewMyPlannedItems">
+      <soap:operation soapAction="urn:ViewMyPlannedItems" style="document"/>
+      <wsdl:input name="viewMyPlannedItems">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="viewMyPlannedItemsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setLocation">
+      <soap:operation soapAction="urn:SetLocation" style="document"/>
+      <wsdl:input name="setLocation">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="setLocationResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addCalendarItem">
+      <soap:operation soapAction="urn:AddCalendarItem" style="document"/>
+      <wsdl:input name="addCalendarItem">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="addCalendarItemResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getOrCreate">
+      <soap:operation soapAction="urn:GetOrCreate" style="document"/>
+      <wsdl:input name="getOrCreate">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getOrCreateResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setDate">
+      <soap:operation soapAction="urn:SetDate" style="document"/>
+      <wsdl:input name="setDate">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="setDateResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="viewMyTrips">
+      <soap:operation soapAction="urn:ViewMyTrips" style="document"/>
+      <wsdl:input name="viewMyTrips">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="viewMyTripsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="saveEventItem">
+      <soap:operation soapAction="urn:SaveEventItem" style="document"/>
+      <wsdl:input name="saveEventItem">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="saveEventItemResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="planMyTrip">
+      <soap:operation soapAction="urn:PlanMyTrip" style="document"/>
+      <wsdl:input name="planMyTrip">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="planMyTripResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TripPlannerService">
+    <wsdl:port binding="tns:TripPlannerServiceSoapBinding" name="TripPlannerPort">
+      <soap:address location="http://localhost:8080/trip-planner/services/TripPlannerPort"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>http://localhost:8080/trip-planner/services/TripPlannerPort?xsd=tripplanner_schema1.xsd</con:url><con:content><![CDATA[<xs:schema elementFormDefault="unqualified" targetNamespace="http://org/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://org/">
+  <xs:element name="addCalendarItem" type="tns:addCalendarItem"/>
+  <xs:element name="addCalendarItemResponse" type="tns:addCalendarItemResponse"/>
+  <xs:element name="getOrCreate" type="tns:getOrCreate"/>
+  <xs:element name="getOrCreateResponse" type="tns:getOrCreateResponse"/>
+  <xs:element name="planMyTrip" type="tns:planMyTrip"/>
+  <xs:element name="planMyTripResponse" type="tns:planMyTripResponse"/>
+  <xs:element name="saveEventItem" type="tns:saveEventItem"/>
+  <xs:element name="saveEventItemResponse" type="tns:saveEventItemResponse"/>
+  <xs:element name="savePlaceItem" type="tns:savePlaceItem"/>
+  <xs:element name="savePlaceItemResponse" type="tns:savePlaceItemResponse"/>
+  <xs:element name="setAccommodation" type="tns:setAccommodation"/>
+  <xs:element name="setAccommodationResponse" type="tns:setAccommodationResponse"/>
+  <xs:element name="setDate" type="tns:setDate"/>
+  <xs:element name="setDateResponse" type="tns:setDateResponse"/>
+  <xs:element name="setLocation" type="tns:setLocation"/>
+  <xs:element name="setLocationResponse" type="tns:setLocationResponse"/>
+  <xs:element name="viewMyPlannedItems" type="tns:viewMyPlannedItems"/>
+  <xs:element name="viewMyPlannedItemsResponse" type="tns:viewMyPlannedItemsResponse"/>
+  <xs:element name="viewMyTrips" type="tns:viewMyTrips"/>
+  <xs:element name="viewMyTripsResponse" type="tns:viewMyTripsResponse"/>
+  <xs:complexType name="setAccommodation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+      <xs:element minOccurs="0" name="arg1" type="tns:accommodation"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="accommodation">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="setAccommodationResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:trip"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="trip">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="savePlaceItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+      <xs:element name="arg1" type="xs:double"/>
+      <xs:element name="arg2" type="xs:double"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="savePlaceItemResponse">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="viewMyPlannedItems">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="viewMyPlannedItemsResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:planItem"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="planItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="xs:string"/>
+      <xs:element name="latitude" type="xs:double"/>
+      <xs:element name="longitude" type="xs:double"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="setLocation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+      <xs:element minOccurs="0" name="arg1" type="xs:string"/>
+      <xs:element minOccurs="0" name="arg2" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="setLocationResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:trip"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="addCalendarItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="tns:calendarItem"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="calendarItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="planItem" type="tns:planItem"/>
+      <xs:element minOccurs="0" name="from" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="to" type="xs:dateTime"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="addCalendarItemResponse">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="getOrCreate">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOrCreateResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:trip"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="setDate">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+      <xs:element minOccurs="0" name="arg1" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="arg2" type="xs:dateTime"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="setDateResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:trip"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="viewMyTrips">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="viewMyTripsResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:trip"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="saveEventItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+      <xs:element name="arg1" type="xs:double"/>
+      <xs:element name="arg2" type="xs:double"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="saveEventItemResponse">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="planMyTrip">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="planMyTripResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:calendar"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="calendar">
+    <xs:sequence/>
+  </xs:complexType>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/trip-planner/services/TripPlannerPort</con:endpoint></con:endpoints><con:operation id="da0d6405-5718-4169-bb0b-23211ee5c871" isOneWay="false" action="urn:AddCalendarItem" name="addCalendarItem" bindingOperationName="addCalendarItem" type="Request-Response" outputName="addCalendarItemResponse" inputName="addCalendarItem" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="7a26dfe8-f3cc-46ac-a1ab-1e58a35def95" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/trip-planner/services/TripPlannerPort</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:org="http://org/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <org:addCalendarItem>\r
+         <!--Optional:-->\r
+         <arg0>\r
+            <!--Optional:-->\r
+            <planItem>\r
+               <!--Optional:-->\r
+               <id>?</id>\r
+               <latitude>?</latitude>\r
+               <longitude>?</longitude>\r
+            </planItem>\r
+            <!--Optional:-->\r
+            <from>?</from>\r
+            <!--Optional:-->\r
+            <to>?</to>\r
+         </arg0>\r
+      </org:addCalendarItem>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:AddCalendarItem"/></con:call></con:operation><con:operation id="216a7ae5-5523-4220-b1b9-5ffc5a98adad" isOneWay="false" action="urn:GetOrCreate" name="getOrCreate" bindingOperationName="getOrCreate" type="Request-Response" outputName="getOrCreateResponse" inputName="getOrCreate" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="3319f174-b4d7-43ba-8be9-2306ca2680a4" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/trip-planner/services/TripPlannerPort</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:org="http://org/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+   <soapenv:Header>
+   <wsse:Security>
+      <wsse:UsernameToken>
+        <wsse:Username>Fred</wsse:Username>
+        <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">twinA</wsse:Password>
+      </wsse:UsernameToken>
+     </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>\r
+      <org:getOrCreate>\r
+         <!--Optional:-->\r
+         <arg0>surfing in portugal</arg0>\r
+      </org:getOrCreate>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:GetOrCreate"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="0f7175d7-6fed-4e77-a774-bd7802041576" isOneWay="false" action="urn:PlanMyTrip" name="planMyTrip" bindingOperationName="planMyTrip" type="Request-Response" outputName="planMyTripResponse" inputName="planMyTrip" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="3ff21518-a008-4dd9-917c-f65fd1631b5c" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/trip-planner/services/TripPlannerPort</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:org="http://org/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <org:planMyTrip/>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:PlanMyTrip"/></con:call></con:operation><con:operation id="2382eb57-8858-452d-b96c-d42c3e0960d4" isOneWay="false" action="urn:SaveEventItem" name="saveEventItem" bindingOperationName="saveEventItem" type="Request-Response" outputName="saveEventItemResponse" inputName="saveEventItem" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="e71df1b2-fb5f-47a9-ad56-274d50a7e10b" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/trip-planner/services/TripPlannerPort</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:org="http://org/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <org:saveEventItem>\r
+         <!--Optional:-->\r
+         <arg0>?</arg0>\r
+         <arg1>?</arg1>\r
+         <arg2>?</arg2>\r
+      </org:saveEventItem>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:SaveEventItem"/></con:call></con:operation><con:operation id="6fcc2342-f7f9-48d3-9b38-7f31ba635fdb" isOneWay="false" action="urn:SavePlaceItem" name="savePlaceItem" bindingOperationName="savePlaceItem" type="Request-Response" outputName="savePlaceItemResponse" inputName="savePlaceItem" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="33cb6548-86cc-4dc6-8e6b-70912e9b4ffb" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/trip-planner/services/TripPlannerPort</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:org="http://org/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <org:savePlaceItem>\r
+         <!--Optional:-->\r
+         <arg0>?</arg0>\r
+         <arg1>?</arg1>\r
+         <arg2>?</arg2>\r
+      </org:savePlaceItem>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:SavePlaceItem"/></con:call></con:operation><con:operation id="4877d6a9-9ef4-41bb-9f67-a46f0c5e9170" isOneWay="false" action="urn:SetAccommodation" name="setAccommodation" bindingOperationName="setAccommodation" type="Request-Response" outputName="setAccommodationResponse" inputName="setAccommodation" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="917577ab-4a25-4ef0-8959-e6c1ebea7aab" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/trip-planner/services/TripPlannerPort</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:org="http://org/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <org:setAccommodation>\r
+         <!--Optional:-->\r
+         <arg0>?</arg0>\r
+         <!--Optional:-->\r
+         <arg1/>\r
+      </org:setAccommodation>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:SetAccommodation"/></con:call></con:operation><con:operation id="c717ec5e-9277-4036-8083-80c8ba6a6e3c" isOneWay="false" action="urn:SetDate" name="setDate" bindingOperationName="setDate" type="Request-Response" outputName="setDateResponse" inputName="setDate" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="655060a9-fa8b-4ad5-a13b-1eba58d50d7c" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/trip-planner/services/TripPlannerPort</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:org="http://org/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <org:setDate>\r
+         <!--Optional:-->\r
+         <arg0>?</arg0>\r
+         <!--Optional:-->\r
+         <arg1>?</arg1>\r
+         <!--Optional:-->\r
+         <arg2>?</arg2>\r
+      </org:setDate>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:SetDate"/></con:call></con:operation><con:operation id="3cd68cac-c476-497a-aef7-26f9a1fc8c05" isOneWay="false" action="urn:SetLocation" name="setLocation" bindingOperationName="setLocation" type="Request-Response" outputName="setLocationResponse" inputName="setLocation" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="603ee35a-4323-45d5-b3ff-501960b22ad3" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/trip-planner/services/TripPlannerPort</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:org="http://org/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <org:setLocation>\r
+         <!--Optional:-->\r
+         <arg0>?</arg0>\r
+         <!--Optional:-->\r
+         <arg1>?</arg1>\r
+         <!--Optional:-->\r
+         <arg2>?</arg2>\r
+      </org:setLocation>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:SetLocation"/></con:call></con:operation><con:operation id="7afb20e1-9ee5-47e1-976d-e9ea32ba5b17" isOneWay="false" action="urn:ViewMyPlannedItems" name="viewMyPlannedItems" bindingOperationName="viewMyPlannedItems" type="Request-Response" outputName="viewMyPlannedItemsResponse" inputName="viewMyPlannedItems" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="d8ca64a2-b97f-4ec8-b6da-506c899cbefa" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/trip-planner/services/TripPlannerPort</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:org="http://org/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <org:viewMyPlannedItems/>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:ViewMyPlannedItems"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="bee97489-bb0f-47c2-9fbf-dacffd02010b" isOneWay="false" action="urn:ViewMyTrips" name="viewMyTrips" bindingOperationName="viewMyTrips" type="Request-Response" outputName="viewMyTripsResponse" inputName="viewMyTrips" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="9e68cd58-25fa-4d57-9422-bdd0f7329499" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/trip-planner/services/TripPlannerPort</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:org="http://org/">
+   <soapenv:Header>
+   <wsse:Security>
+      <wsse:UsernameToken>
+        <wsse:Username>Fred</wsse:Username>
+        <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">twinA</wsse:Password>
+      </wsse:UsernameToken>
+     </wsse:Security>
+
+   </soapenv:Header>
+   <soapenv:Body>
+      <org:viewMyTrips/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:ViewMyTrips"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
