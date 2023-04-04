@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:tns="http://nswi145/PlanTrip/wsdl"
+   xmlns:tnsxsd="http://nswi145/PlanTrip/xsd"
+   xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+   xmlns:xs="http://www.w3.org/2001/XMLSchema"
+   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+   xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+   xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+   xmlns:trip="http://trip_planner.example.org/"
+   targetNamespace="http://nswi145/PlanTrip/wsdl">
+    <wsdl:import location="trip-planner.wsdl"
+      namespace="http://trip_planner.example.org/" />
+
+	<wsdl:types>
+		<xs:schema targetNamespace="http://nswi145/PlanTrip/xsd">
+			<xs:element name="tripInput">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="tripName" type="xs:string"/>
+						<xs:element name="dateFrom" type="xs:dateTime"/>
+						<xs:element name="dateTo" type="xs:dateTime"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="tripOutput" type="trip:Trip"/>
+		</xs:schema>
+	</wsdl:types>
+
+	<wsdl:message name="TripInputMessage">
+		<wsdl:part name="parameters" element="tnsxsd:tripInput"/>
+	</wsdl:message>
+	<wsdl:message name="TripOutputMessage">
+		<wsdl:part name="parameters" element="tnsxsd:tripOutput"/>
+	</wsdl:message>
+
+	<wsdl:portType name="TripPortType">
+		<wsdl:operation name="planTripWithEvents">
+			<wsdl:input name="TripInput" message="tns:TripInputMessage"/>
+			<wsdl:output name="TripOutput" message="tns:TripOutputMessage"/>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:portType name="GetOrCreateResponsePortType">
+		<wsdl:operation name="getOrCreateOperation">
+			<wsdl:input name="getOrCreateInput" message="trip:getOrCreateResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="TripPlannerSOAPBinding" type="tns:TripPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="planTripWithEvents">
+			<soap:operation soapAction="urn:planTripWithEvents" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:binding name="GetOrCreateSOAPBinding" type="tns:GetOrCreateResponsePortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="getOrCreateOperation">
+			<soap:operation soapAction="urn:getOrCreateResponseOperation" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:service name="TripPlannerService">
+		<wsdl:port name="TripPort" binding="tns:TripPlannerSOAPBinding">
+			<soap:address location="http://localhost:8080/ode/processes/TripPlanner"/>
+		</wsdl:port>
+		<wsdl:port name="GetOrCreatePort" binding="tns:GetOrCreateSOAPBinding">
+			<soap:address location="http://localhost:8080/ode/processes/TripPlannerGetOrCreate"/>
+		</wsdl:port>
+	</wsdl:service>
+
+	<plnk:partnerLinkType name="TripLinkType">
+		<plnk:role name="TripPlannerExecutorRole" portType="tns:TripPortType"/>
+	</plnk:partnerLinkType>
+
+	<plnk:partnerLinkType name="GetOrCreateLinkType">
+	  <plnk:role name="GetOrCreateRole" portType="trip:TripPlannerService" />
+	  <plnk:role name="GetOrCreateClientRole" portType="tns:GetOrCreateResponsePortType" />
+	</plnk:partnerLinkType>
+
+</wsdl:definitions>

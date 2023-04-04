@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<process name="TripPlanner"
+    targetNamespace="http://nswi145/PlanTrip/bpel"
+    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:tns="http://nswi145/PlanTrip/bpel"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:tnswsdl="http://nswi145/PlanTrip/wsdl"
+    xmlns:tnsxsd="http://nswi145/PlanTrip/xsd"
+    xmlns:trip="http://trip_planner.example.org/"
+    queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath2.0"
+    expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath2.0">
+
+  <import location="PlanTripProcess.wsdl"
+      namespace="http://nswi145/PlanTrip/wsdl"
+      importType="http://schemas.xmlsoap.org/wsdl/" />
+
+  <partnerLinks>
+    <partnerLink name="TripPlannerPartnerLink"
+        partnerLinkType="tnswsdl:TripLinkType"
+        myRole="TripPlannerExecutorRole" />
+    <partnerLink name="GetOrCreateLink"
+        partnerLinkType="tnswsdl:GetOrCreateLinkType"
+        myRole="GetOrCreateClientRole"
+        partnerRole="GetOrCreateRole"/>
+  </partnerLinks>
+
+  <variables>
+    <variable name="inputMessage" messageType="tnswsdl:TripInputMessage" />
+    <variable name="inputTripName" type="xs:integer" />
+    <variable name="getOrCreateRequestElement" element="trip:getOrCreate" />
+    <variable name="getOrCreateRequest" messageType="trip:getOrCreateRequest" />
+    <variable name="getOrCreateResponse" messageType="trip:getOrCreateResponse" />
+    <variable name="getOrCreateResponseElement" element="trip:getOrCreate" />
+    <variable name="outputMessage" messageType="tnswsdl:TripOutputMessage" />
+  </variables>
+
+  <sequence>
+
+    <receive
+        name="ReceiveTripInputs"
+        partnerLink="TripPlannerPartnerLink"
+        portType="tnswsdl:TripPortType"
+        operation="planTripWithEvents"
+        variable="inputMessage"
+        createInstance="yes" />
+
+    <assign name="ParseInput">
+    	<copy>
+    		<from variable="inputMessage" part="parameters"/>
+    		<to variable="inputTripName"/>
+    	</copy>
+    </assign>
+
+    <assign name="InitGetOrCreateRequest">
+      <copy>
+        <from>
+        	<literal>
+        		<trip:getOrCreate>
+              <trip:tripName></trip:tripName>
+            </trip:getOrCreate>
+        	</literal>
+        </from>
+        <to variable="getOrCreateRequestElement" />
+      </copy>
+      <copy>
+      	<from>$inputTripName</from>
+      	<to>$getOrCreateRequestElement/trip:tripName</to>
+      </copy>
+      <copy>
+      	<from variable="getOrCreateRequestElement"/>
+      	<to variable="getOrCreateRequest" part="parameters"/>
+      </copy>
+    </assign>
+
+	<invoke
+        name="InvokeGetOrCreateTrip"
+        partnerLink="GetOrCreateLink"
+        operation="getOrCreate"
+        inputVariable="getOrCreateRequest"
+        outputVariable="getOrCreateResponse" />
+
+    <assign name="ParseGetOrCreateResponse">
+    	<copy>
+    		<from variable="getOrCreateResponse" part="parameters"/>
+    		<to variable="getOrCreateResponseElement"/>
+    	</copy>
+    	<copy>
+    		<from>$getOrCreateResponseElement</from>
+    		<to variable="outputMessage" part="parameters"/>
+    	</copy>
+    </assign>
+
+    <reply name="ReplyTripOutputs"
+        partnerLink="TripPlannerPartnerLink"
+        portType="tnswsdl:TripPortType"
+        operation="planTripWithEvents"
+        variable="outputMessage" />
+
+
+  </sequence>
+
+</process>
