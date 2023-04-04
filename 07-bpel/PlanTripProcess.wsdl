@@ -7,21 +7,23 @@
    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
    xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
    xmlns:trip="http://trip_planner.example.org/"
+   xmlns:event="http://event_discovery_api.example.org/"
    targetNamespace="http://nswi145/PlanTrip/wsdl">
     <wsdl:import location="trip-planner.wsdl"
       namespace="http://trip_planner.example.org/" />
+	<wsdl:import location="event-discovery-api.wsdl"
+      namespace="http://event_discovery_api.example.org/" />
 
 	<wsdl:types>
 		<xs:schema targetNamespace="http://nswi145/PlanTrip/xsd">
-			<xs:element name="tripInput">
-				<xs:complexType>
-					<xs:sequence>
-						<xs:element name="tripName" type="xs:string"/>
-						<xs:element name="dateFrom" type="xs:dateTime"/>
-						<xs:element name="dateTo" type="xs:dateTime"/>
-					</xs:sequence>
-				</xs:complexType>
-			</xs:element>
+			<xs:complexType name="TripInput">
+				<xs:sequence>
+					<xs:element name="tripName" type="xs:string"/>
+					<xs:element name="dateFrom" type="xs:date"/>
+					<xs:element name="dateTo" type="xs:date"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="tripInput" type="tns:TripInput" />
 			<xs:element name="tripOutput" type="trip:Trip"/>
 		</xs:schema>
 	</wsdl:types>

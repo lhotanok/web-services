@@ -26,7 +26,7 @@
 
   <variables>
     <variable name="inputMessage" messageType="tnswsdl:TripInputMessage" />
-    <variable name="inputTripName" type="xs:integer" />
+    <variable name="inputTrip" element="tnswsdl:tripInput" />
     <variable name="getOrCreateRequestElement" element="trip:getOrCreate" />
     <variable name="getOrCreateRequest" messageType="trip:getOrCreateRequest" />
     <variable name="getOrCreateResponse" messageType="trip:getOrCreateResponse" />
@@ -47,7 +47,7 @@
     <assign name="ParseInput">
     	<copy>
     		<from variable="inputMessage" part="parameters"/>
-    		<to variable="inputTripName"/>
+    		<to variable="inputTrip"/>
     	</copy>
     </assign>
 
@@ -63,7 +63,7 @@
         <to variable="getOrCreateRequestElement" />
       </copy>
       <copy>
-      	<from>$inputTripName</from>
+      	<from>$inputTrip/tripName</from>
       	<to>$getOrCreateRequestElement/trip:tripName</to>
       </copy>
       <copy>
