@@ -35,13 +35,6 @@
 		<wsdl:part name="parameters" element="tnsxsd:tripOutput"/>
 	</wsdl:message>
 
-	<wsdl:message name="GetOrCreateInputMessage">
-		<wsdl:part name="parameters" element="tnsxsd:getOrCreateInput"/>
-	</wsdl:message>
-	<wsdl:message name="GetOrCreateOutputMessage">
-		<wsdl:part name="parameters" element="tnsxsd:getOrCreateOutput"/>
-	</wsdl:message>
-
 	<wsdl:portType name="TripPortType">
 		<wsdl:operation name="planTripWithEvents">
 			<wsdl:input name="TripInput" message="tns:TripInputMessage"/>
@@ -51,8 +44,7 @@
 
 	<wsdl:portType name="GetOrCreateResponsePortType">
 		<wsdl:operation name="getOrCreateOperation">
-			<wsdl:input name="getOrCreateInput" message="tns:GetOrCreateInputMessage"/>
-			<wsdl:output name="getOrCreateOutput" message="tns:GetOrCreateOutputMessage"/>
+			<wsdl:input name="getOrCreateInput" message="trip:getOrCreateResponse"/>
 		</wsdl:operation>
 	</wsdl:portType>
 

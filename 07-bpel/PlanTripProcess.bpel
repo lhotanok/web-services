@@ -32,9 +32,6 @@
     <variable name="inputMessage" messageType="tnswsdl:TripInputMessage" />
     <variable name="outputMessage" messageType="tnswsdl:TripOutputMessage" />
 
-    <variable name="inputMessageCreatedTrip" messageType="tnswsdl:GetOrCreateInputMessage" />
-    <variable name="outputMessageCreatedTrip" messageType="tnswsdl:GetOrCreateOutputMessage" />
-
     <variable name="inputTrip" element="tnswsdl:tripInput" />
     <variable name="outputTrip" element="tnswsdl:tripOutput" />
 
@@ -99,21 +96,17 @@
         <from variable="getOrCreateResponse" part="parameters"/>
         <to variable="getOrCreateResponseElement"/>
       </copy>
+      <copy>
+    		<from>$getOrCreateResponseElement</from>
+    		<to variable="outputMessage" part="parameters"/>
+    	</copy>
     </assign>
 
-    <receive
-        name="ReceiveGetOrCreateInputs"
-        partnerLink="GetOrCreateLink"
-        portType="tnswsdl:GetOrCreateResponsePortType"
-        operation="getOrCreateOperation"
-        variable="inputMessageCreatedTrip"
-        createInstance="yes" />
-
-    <assign name="ParseInputForSetDate">
-      <copy>
-        <from variable="inputMessageCreatedTrip" part="parameters"/>
-        <to variable="outputTrip"/>
-      </copy>
+    <assign name="ParseSetDateInput">
+    	<copy>
+    		<from variable="outputMessage" part="parameters"/>
+    		<to variable="outputTrip"/>
+    	</copy>
     </assign>
 
     <assign name="InitSetDateRequest">
@@ -129,10 +122,21 @@
         </from>
         <to variable="setDateRequestElement" />
       </copy>
+
+
+      <!--
+        I can't figure out how 'uuid' value from 'getOrCreateResponse' should be passed
+        to `setDate` operation's input.
+        I tried tons of different approaches but I always ended up with 'ns2e24D:selectionFailure'
+        while testing in SOAP UI. Both '$inputTrip/dateFrom' and '$inputTrip/dateTo' work fine,
+        as well as 'planTripWithEvents' + 'getOrCreate' operations without `setDate' operation 🤷‍♀️
+      -->
       <copy>
         <from>$outputTrip/uuid</from>
         <to>$setDateRequestElement/trip:tripId</to>
       </copy>
+
+
       <copy>
         <from>$inputTrip/dateFrom</from>
         <to>$setDateRequestElement/trip:dateFrom</to>
