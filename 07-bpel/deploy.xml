@@ -14,10 +14,15 @@
     <invoke partnerLink="GetOrCreateLink">
       <service name="trip:TripPlannerService" port="TripPlannerServiceSOAP" />
     </invoke>
+    <invoke partnerLink="SetDateLink">
+      <service name="trip:TripPlannerService" port="TripPlannerServiceSOAP" />
+    </invoke>
     <provide partnerLink="GetOrCreateLink">
       <service name="tnswsdl:TripPlannerService" port="GetOrCreatePort" />
     </provide>
-
+    <provide partnerLink="SetDateLink">
+      <service name="tnswsdl:TripPlannerService" port="SetDatePort" />
+    </provide>
   </process>
 
 </deploy>

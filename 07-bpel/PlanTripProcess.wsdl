@@ -19,11 +19,11 @@
 			<xs:complexType name="TripInput">
 				<xs:sequence>
 					<xs:element name="tripName" type="xs:string"/>
-					<xs:element name="dateFrom" type="xs:date"/>
-					<xs:element name="dateTo" type="xs:date"/>
+					<xs:element name="dateFrom" type="xs:dateTime"/>
+					<xs:element name="dateTo" type="xs:dateTime"/>
 				</xs:sequence>
 			</xs:complexType>
-			<xs:element name="tripInput" type="tns:TripInput" />
+			<xs:element name="tripInput" type="tnsxsd:TripInput" />
 			<xs:element name="tripOutput" type="trip:Trip"/>
 		</xs:schema>
 	</wsdl:types>
@@ -35,6 +35,13 @@
 		<wsdl:part name="parameters" element="tnsxsd:tripOutput"/>
 	</wsdl:message>
 
+	<wsdl:message name="GetOrCreateInputMessage">
+		<wsdl:part name="parameters" element="tnsxsd:getOrCreateInput"/>
+	</wsdl:message>
+	<wsdl:message name="GetOrCreateOutputMessage">
+		<wsdl:part name="parameters" element="tnsxsd:getOrCreateOutput"/>
+	</wsdl:message>
+
 	<wsdl:portType name="TripPortType">
 		<wsdl:operation name="planTripWithEvents">
 			<wsdl:input name="TripInput" message="tns:TripInputMessage"/>
@@ -44,7 +51,14 @@
 
 	<wsdl:portType name="GetOrCreateResponsePortType">
 		<wsdl:operation name="getOrCreateOperation">
-			<wsdl:input name="getOrCreateInput" message="trip:getOrCreateResponse"/>
+			<wsdl:input name="getOrCreateInput" message="tns:GetOrCreateInputMessage"/>
+			<wsdl:output name="getOrCreateOutput" message="tns:GetOrCreateOutputMessage"/>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:portType name="SetDateResponsePortType">
+		<wsdl:operation name="setDateOperation">
+			<wsdl:input name="setDateInput" message="trip:setDateResponse"/>
 		</wsdl:operation>
 	</wsdl:portType>
 
@@ -71,12 +85,25 @@
 		</wsdl:operation>
 	</wsdl:binding>
 
+	<wsdl:binding name="SetDateSOAPBinding" type="tns:SetDateResponsePortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="setDateOperation">
+			<soap:operation soapAction="urn:setDateResponseOperation" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+
 	<wsdl:service name="TripPlannerService">
 		<wsdl:port name="TripPort" binding="tns:TripPlannerSOAPBinding">
 			<soap:address location="http://localhost:8080/ode/processes/TripPlanner"/>
 		</wsdl:port>
 		<wsdl:port name="GetOrCreatePort" binding="tns:GetOrCreateSOAPBinding">
 			<soap:address location="http://localhost:8080/ode/processes/TripPlannerGetOrCreate"/>
+		</wsdl:port>
+		<wsdl:port name="SetDatePort" binding="tns:SetDateSOAPBinding">
+			<soap:address location="http://localhost:8080/ode/processes/TripPlannerSetDate"/>
 		</wsdl:port>
 	</wsdl:service>
 
@@ -87,6 +114,11 @@
 	<plnk:partnerLinkType name="GetOrCreateLinkType">
 	  <plnk:role name="GetOrCreateRole" portType="trip:TripPlannerService" />
 	  <plnk:role name="GetOrCreateClientRole" portType="tns:GetOrCreateResponsePortType" />
+	</plnk:partnerLinkType>
+
+	<plnk:partnerLinkType name="SetDateLinkType">
+	  <plnk:role name="SetDateRole" portType="trip:TripPlannerService" />
+	  <plnk:role name="SetDateClientRole" portType="tns:SetDateResponsePortType" />
 	</plnk:partnerLinkType>
 
 </wsdl:definitions>

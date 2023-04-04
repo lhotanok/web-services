@@ -22,16 +22,31 @@
         partnerLinkType="tnswsdl:GetOrCreateLinkType"
         myRole="GetOrCreateClientRole"
         partnerRole="GetOrCreateRole"/>
+    <partnerLink name="SetDateLink"
+        partnerLinkType="tnswsdl:SetDateLinkType"
+        myRole="SetDateClientRole"
+        partnerRole="SetDateRole"/>
   </partnerLinks>
 
   <variables>
     <variable name="inputMessage" messageType="tnswsdl:TripInputMessage" />
+    <variable name="outputMessage" messageType="tnswsdl:TripOutputMessage" />
+
+    <variable name="inputMessageCreatedTrip" messageType="tnswsdl:GetOrCreateInputMessage" />
+    <variable name="outputMessageCreatedTrip" messageType="tnswsdl:GetOrCreateOutputMessage" />
+
     <variable name="inputTrip" element="tnswsdl:tripInput" />
+    <variable name="outputTrip" element="tnswsdl:tripOutput" />
+
     <variable name="getOrCreateRequestElement" element="trip:getOrCreate" />
     <variable name="getOrCreateRequest" messageType="trip:getOrCreateRequest" />
     <variable name="getOrCreateResponse" messageType="trip:getOrCreateResponse" />
     <variable name="getOrCreateResponseElement" element="trip:getOrCreate" />
-    <variable name="outputMessage" messageType="tnswsdl:TripOutputMessage" />
+
+    <variable name="setDateRequestElement" element="trip:setDate" />
+    <variable name="setDateRequest" messageType="trip:setDateRequest" />
+    <variable name="setDateResponse" messageType="trip:setDateResponse" />
+    <variable name="setDateResponseElement" element="trip:setDate" />
   </variables>
 
   <sequence>
@@ -72,7 +87,7 @@
       </copy>
     </assign>
 
-	<invoke
+	  <invoke
         name="InvokeGetOrCreateTrip"
         partnerLink="GetOrCreateLink"
         operation="getOrCreate"
@@ -80,14 +95,74 @@
         outputVariable="getOrCreateResponse" />
 
     <assign name="ParseGetOrCreateResponse">
-    	<copy>
-    		<from variable="getOrCreateResponse" part="parameters"/>
-    		<to variable="getOrCreateResponseElement"/>
-    	</copy>
-    	<copy>
-    		<from>$getOrCreateResponseElement</from>
-    		<to variable="outputMessage" part="parameters"/>
-    	</copy>
+      <copy>
+        <from variable="getOrCreateResponse" part="parameters"/>
+        <to variable="getOrCreateResponseElement"/>
+      </copy>
+    </assign>
+
+    <receive
+        name="ReceiveGetOrCreateInputs"
+        partnerLink="GetOrCreateLink"
+        portType="tnswsdl:GetOrCreateResponsePortType"
+        operation="getOrCreateOperation"
+        variable="inputMessageCreatedTrip"
+        createInstance="yes" />
+
+    <assign name="ParseInputForSetDate">
+      <copy>
+        <from variable="inputMessageCreatedTrip" part="parameters"/>
+        <to variable="outputTrip"/>
+      </copy>
+    </assign>
+
+    <assign name="InitSetDateRequest">
+      <copy>
+        <from>
+          <literal>
+            <trip:setDate>
+              <trip:tripId></trip:tripId>
+              <trip:dateFrom></trip:dateFrom>
+              <trip:dateTo></trip:dateTo>
+            </trip:setDate>
+          </literal>
+        </from>
+        <to variable="setDateRequestElement" />
+      </copy>
+      <copy>
+        <from>$outputTrip/uuid</from>
+        <to>$setDateRequestElement/trip:tripId</to>
+      </copy>
+      <copy>
+        <from>$inputTrip/dateFrom</from>
+        <to>$setDateRequestElement/trip:dateFrom</to>
+      </copy>
+      <copy>
+        <from>$inputTrip/dateTo</from>
+        <to>$setDateRequestElement/trip:dateTo</to>
+      </copy>
+      <copy>
+        <from variable="setDateRequestElement"/>
+        <to variable="setDateRequest" part="parameters"/>
+      </copy>
+    </assign>
+
+    <invoke
+        name="InvokeSetDateForTrip"
+        partnerLink="SetDateLink"
+        operation="setDate"
+        inputVariable="setDateRequest"
+        outputVariable="setDateResponse" />
+
+    <assign name="ParseSetDateResponse">
+      <copy>
+        <from variable="setDateResponse" part="parameters"/>
+        <to variable="setDateResponseElement"/>
+      </copy>
+      <copy>
+        <from>$setDateResponseElement</from>
+        <to variable="outputMessage" part="parameters"/>
+      </copy>
     </assign>
 
     <reply name="ReplyTripOutputs"
@@ -95,7 +170,6 @@
         portType="tnswsdl:TripPortType"
         operation="planTripWithEvents"
         variable="outputMessage" />
-
 
   </sequence>
 
