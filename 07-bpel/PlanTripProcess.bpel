@@ -28,6 +28,10 @@
         partnerLinkType="tnswsdl:SetDateLinkType"
         myRole="SetDateClientRole"
         partnerRole="SetDateRole"/>
+    <partnerLink name="FetchNearEventsByGeohashLink"
+        partnerLinkType="tnswsdl:FetchNearEventsByGeohashLinkType"
+        myRole="FetchNearEventsByGeohashClientRole"
+        partnerRole="FetchNearEventsByGeohashRole"/>
   </partnerLinks>
 
   <variables>
@@ -45,6 +49,11 @@
     <variable name="setDateRequest" messageType="trip:setDateRequest" />
     <variable name="setDateResponse" messageType="trip:setDateResponse" />
     <variable name="setDateResponseElement" element="trip:setDate" />
+
+    <variable name="fetchNearEventsByGeohashRequestElement" element="event:fetchNearEventsByGeohash" />
+    <variable name="fetchNearEventsByGeohashRequest" messageType="event:fetchNearEventsByGeohashRequest" />
+    <variable name="fetchNearEventsByGeohashResponse" messageType="event:fetchNearEventsByGeohashResponse" />
+    <variable name="fetchNearEventsByGeohashResponseElement" element="event:fetchNearEventsByGeohash" />
 
     <variable name="outputElement" element="tnswsdl:tripOutput" />
   </variables>
@@ -66,18 +75,7 @@
     	</copy>
     </assign>
 
-    <assign name="InitGetOrCreateRequest">
-      <copy>
-        <from>
-        	<literal>
-        		<trip:getOrCreate>
-              <trip:tripName></trip:tripName>
-            </trip:getOrCreate>
-        	</literal>
-        </from>
-        <to variable="getOrCreateRequestElement" />
-      </copy>
-
+    <assign name="InitOutputElement">
       <copy>
         <from>
           <literal>
@@ -88,6 +86,19 @@
           </literal>
         </from>
         <to variable="outputElement" />
+      </copy>
+    </assign>
+
+    <assign name="InitGetOrCreateRequest">
+      <copy>
+        <from>
+        	<literal>
+        		<trip:getOrCreate>
+              <trip:tripName></trip:tripName>
+            </trip:getOrCreate>
+        	</literal>
+        </from>
+        <to variable="getOrCreateRequestElement" />
       </copy>
 
       <copy>
@@ -159,14 +170,59 @@
         <from variable="setDateResponse" part="parameters"/>
         <to variable="setDateResponseElement"/>
       </copy>
-      <!-- <copy>
-        <from>$setDateResponseElement</from>
-        <to variable="outputMessage" part="parameters"/>
-      </copy> -->
       <copy>
         <from>$setDateResponseElement/descendant::return</from>
         <to>$outputElement/tnsxsd:trip</to>
       </copy>
+    </assign>
+
+
+    <assign name="InitFetchNearEventsByGeohashRequest">
+      <copy>
+        <from>
+        	<literal>
+        		<event:fetchNearEventsByGeohash>
+              <event:geohash></event:geohash>
+              <event:radius></event:radius>
+            </event:fetchNearEventsByGeohash>
+        	</literal>
+        </from>
+        <to variable="fetchNearEventsByGeohashRequestElement" />
+      </copy>
+
+      <copy>
+      	<from>$inputTrip/geohashForEvents</from>
+      	<to>$fetchNearEventsByGeohashRequestElement/event:geohash</to>
+      </copy>
+      <copy>
+      	<from>$inputTrip/radiusForEvents</from>
+      	<to>$fetchNearEventsByGeohashRequestElement/event:radius</to>
+      </copy>
+      <copy>
+      	<from variable="fetchNearEventsByGeohashRequestElement"/>
+      	<to variable="fetchNearEventsByGeohashRequest" part="parameters"/>
+      </copy>
+    </assign>
+
+	  <invoke
+        name="InvokeFetchNearEventsByGeohashTrip"
+        partnerLink="FetchNearEventsByGeohashLink"
+        operation="fetchNearEventsByGeohash"
+        inputVariable="fetchNearEventsByGeohashRequest"
+        outputVariable="fetchNearEventsByGeohashResponse" />
+
+    <assign name="ParseFetchNearEventsByGeohashResponse">
+      <copy>
+        <from variable="fetchNearEventsByGeohashResponse" part="parameters"/>
+        <to variable="fetchNearEventsByGeohashResponseElement"/>
+      </copy>
+      <copy>
+        <from>$fetchNearEventsByGeohashResponseElement</from>
+        <to>$outputElement/tnsxsd:eventsNearby</to>
+      </copy>
+    </assign>
+
+    <assign name="PrepareOutputMessage">
       <copy>
         <from>$outputElement</from>
         <to variable="outputMessage" part="parameters"/>
