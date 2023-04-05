@@ -7,6 +7,7 @@
     xmlns:tnswsdl="http://nswi145/PlanTrip/wsdl"
     xmlns:tnsxsd="http://nswi145/PlanTrip/xsd"
     xmlns:trip="http://trip_planner.example.org/"
+    xmlns:event="http://event_discovery_api.example.org/"
     xmlns:bpel="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
     queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath2.0"
     expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath2.0">
@@ -44,6 +45,8 @@
     <variable name="setDateRequest" messageType="trip:setDateRequest" />
     <variable name="setDateResponse" messageType="trip:setDateResponse" />
     <variable name="setDateResponseElement" element="trip:setDate" />
+
+    <variable name="outputElement" element="tnswsdl:tripOutput" />
   </variables>
 
   <sequence>
@@ -74,6 +77,19 @@
         </from>
         <to variable="getOrCreateRequestElement" />
       </copy>
+
+      <copy>
+        <from>
+          <literal>
+            <tnsxsd:plannedTrip>
+              <tnsxsd:trip></tnsxsd:trip>
+              <tnsxsd:eventsNearby></tnsxsd:eventsNearby>
+            </tnsxsd:plannedTrip>
+          </literal>
+        </from>
+        <to variable="outputElement" />
+      </copy>
+
       <copy>
       	<from>$inputTrip/tripName</from>
       	<to>$getOrCreateRequestElement/trip:tripName</to>
@@ -143,8 +159,16 @@
         <from variable="setDateResponse" part="parameters"/>
         <to variable="setDateResponseElement"/>
       </copy>
-      <copy>
+      <!-- <copy>
         <from>$setDateResponseElement</from>
+        <to variable="outputMessage" part="parameters"/>
+      </copy> -->
+      <copy>
+        <from>$setDateResponseElement/descendant::return</from>
+        <to>$outputElement/tnsxsd:trip</to>
+      </copy>
+      <copy>
+        <from>$outputElement</from>
         <to variable="outputMessage" part="parameters"/>
       </copy>
     </assign>

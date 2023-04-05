@@ -21,10 +21,24 @@
 					<xs:element name="tripName" type="xs:string"/>
 					<xs:element name="dateFrom" type="xs:dateTime"/>
 					<xs:element name="dateTo" type="xs:dateTime"/>
+          <xs:element name="geohashForEvents" type="xs:string"/>
+          <xs:element name="radiusForEvents" type="xs:integer"/>
 				</xs:sequence>
 			</xs:complexType>
-			<xs:element name="tripInput" type="tnsxsd:TripInput" />
-			<xs:element name="tripOutput" type="trip:Trip"/>
+      <xs:complexType name="PlannedTrip">
+          <xs:sequence>
+            <xs:element name="trip" type="trip:setDateResponse"/>
+            <xs:element name="eventsNearby" type="event:fetchNearEventsByGeohashResponse"/>
+          </xs:sequence>
+			  </xs:complexType>
+			<xs:element name="tripInput" type="tnsxsd:TripInput"/>
+			<xs:element name="tripOutput">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="plannedTrip" type="tnsxsd:PlannedTrip"/>
+          </xs:sequence>
+			  </xs:complexType>
+      </xs:element>
 		</xs:schema>
 	</wsdl:types>
 
