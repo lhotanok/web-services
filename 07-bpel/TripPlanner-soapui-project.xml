@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="2c76a431-fcbd-466b-a5e1-4fb53d7bb085" activeEnvironment="Default" name="TripPlanner" resourceRoot="" soapui-version="5.7.0" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="cc5cd66b-654e-47e8-8ea3-ac751b19d59d" wsaVersion="NONE" name="TripPlannerSOAPBinding" type="wsdl" bindingName="{http://nswi145/PlanTrip/wsdl}TripPlannerSOAPBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080/ode/processes/TripPlanner?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080/ode/processes/TripPlanner?wsdl"><con:part><con:url>http://localhost:8080/ode/processes/TripPlanner?wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://nswi145/PlanTrip/wsdl" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:trip="http://trip_planner.example.org/" xmlns:tnsxsd="http://nswi145/PlanTrip/xsd" xmlns:tns="http://nswi145/PlanTrip/wsdl" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:event="http://event_discovery_api.example.org/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl">
+  <wsdl:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://nswi145/PlanTrip/xsd">
+      <xs:complexType name="TripInput">
+        <xs:sequence>
+          <xs:element name="tripName" type="xs:string"/>
+          <xs:element name="dateFrom" type="xs:dateTime"/>
+          <xs:element name="dateTo" type="xs:dateTime"/>
+          <xs:element name="geohashForEvents" type="xs:string"/>
+          <xs:element name="radiusForEvents" type="xs:integer"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="tripInput" type="tnsxsd:TripInput"/>
+      <xs:element name="tripOutput">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="trip" type="trip:Trip"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="eventsNearby" type="event:Event"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://trip_planner.example.org/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://trip_planner.example.org/">
+      <xs:complexType name="Address">
+        <xs:sequence>
+          <xs:element name="streetAddress" type="xs:string"/>
+          <xs:element name="postalCode" type="xs:int"/>
+          <xs:element name="city" type="xs:string"/>
+          <xs:element name="country" type="xs:string"/>
+          <xs:element name="countryCode" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Accommodation">
+        <xs:sequence>
+          <xs:element name="isBooked" type="xs:boolean"/>
+          <xs:element name="name" type="xs:string"/>
+          <xs:element name="address" type="trip:Address"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="PlanItem">
+        <xs:sequence>
+          <xs:element name="id" type="xs:string"/>
+          <xs:element name="latitude" type="xs:double"/>
+          <xs:element name="longitude" type="xs:double"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Trip">
+        <xs:sequence>
+          <xs:element name="uuid" type="xs:string"/>
+          <xs:element name="name" type="xs:string"/>
+          <xs:element name="dateFrom" type="xs:date"/>
+          <xs:element name="dateTo" type="xs:date"/>
+          <xs:element name="locationCity" type="xs:string"/>
+          <xs:element name="locationCountry" type="xs:string"/>
+          <xs:element name="accommodation" type="trip:Accommodation"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="CalendarItem">
+        <xs:sequence>
+          <xs:element name="planItem" type="trip:PlanItem"/>
+          <xs:element name="from" type="xs:dateTime"/>
+          <xs:element name="to" type="xs:dateTime"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Calendar">
+        <xs:sequence>
+          <xs:element name="calendarItems">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="calendarItem" type="trip:CalendarItem"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="viewMyTrips">
+        <xs:complexType/>
+      </xs:element>
+      <xs:element name="viewMyTripsResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="trip" type="trip:Trip"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="viewMyPlannedItems">
+        <xs:complexType/>
+      </xs:element>
+      <xs:element name="viewMyPlannedItemsResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="planItem" type="trip:PlanItem"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getOrCreate">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="tripName" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getOrCreateResponse" type="trip:Trip"/>
+      <xs:element name="savePlaceItem">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="id" type="xs:string"/>
+            <xs:element name="lat" type="xs:double"/>
+            <xs:element name="long" type="xs:double"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="savePlaceItemResponse">
+        <xs:complexType/>
+      </xs:element>
+      <xs:element name="saveEventItem">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="id" type="xs:string"/>
+            <xs:element name="lat" type="xs:double"/>
+            <xs:element name="long" type="xs:double"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="saveEventItemResponse">
+        <xs:complexType/>
+      </xs:element>
+      <xs:element name="setDate">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="tripId" type="xs:string"/>
+            <xs:element name="dateFrom" type="xs:dateTime"/>
+            <xs:element name="dateTo" type="xs:dateTime"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="setDateResponse" type="trip:Trip"/>
+      <xs:element name="setLocation">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="tripId" type="xs:string"/>
+            <xs:element name="city" type="xs:string"/>
+            <xs:element name="country" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="setLocationResponse" type="trip:Trip"/>
+      <xs:element name="setAccommodation">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="tripId" type="xs:string"/>
+            <xs:element name="accommodation" type="trip:Accommodation"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="setAccommodationResponse" type="trip:Trip"/>
+      <xs:element name="addCalendarItem">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="item" type="trip:CalendarItem"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="addCalendarItemResponse">
+        <xs:complexType/>
+      </xs:element>
+      <xs:element name="planMyTrip">
+        <xs:complexType/>
+      </xs:element>
+      <xs:element name="planMyTripResponse" type="trip:Calendar"/>
+    </xs:schema>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://event_discovery_api.example.org/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://event_discovery_api.example.org/">
+      <xs:complexType name="Address">
+        <xs:sequence>
+          <xs:element name="streetAddress" type="xs:string"/>
+          <xs:element name="postalCode" type="xs:int"/>
+          <xs:element name="city" type="xs:string"/>
+          <xs:element name="country" type="xs:string"/>
+          <xs:element name="countryCode" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Event">
+        <xs:sequence>
+          <xs:element name="uuid" type="xs:string"/>
+          <xs:element name="name" type="xs:string"/>
+          <xs:element name="latitude" type="xs:double"/>
+          <xs:element name="longitude" type="xs:double"/>
+          <xs:element name="geohash" type="xs:string"/>
+          <xs:element name="address" type="tns:Address"/>
+          <xs:element name="dateTimeFrom" type="xs:dateTime"/>
+          <xs:element name="dateTimeTo" type="xs:dateTime"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="fetchNearEvents">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="lat" type="xs:double"/>
+            <xs:element name="long" type="xs:double"/>
+            <xs:element name="radius" type="xs:integer"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="fetchNearEventsResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="event" type="tns:Event"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="fetchNearEventsByGeohash">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="geohash" type="xs:string"/>
+            <xs:element name="radius" type="xs:integer"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="fetchNearEventsByGeohashResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="event" type="tns:Event"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="TripInputMessage">
+    <wsdl:part name="parameters" element="tnsxsd:tripInput"/>
+  </wsdl:message>
+  <wsdl:message name="TripOutputMessage">
+    <wsdl:part name="parameters" element="tnsxsd:tripOutput"/>
+  </wsdl:message>
+  <wsdl:portType name="TripPlannerPortType">
+    <wsdl:operation name="planTripWithEvents">
+      <wsdl:input message="tns:TripInputMessage" wsaw:Action="urn:planTripWithEvents"/>
+      <wsdl:output message="tns:TripOutputMessage" wsaw:Action="http://nswi145/PlanTrip/wsdl/TripPortType/TripOutput"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="TripPlannerSOAPBinding" type="tns:TripPlannerPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <wsdl:operation name="planTripWithEvents">
+      <soap:operation soapAction="urn:planTripWithEvents" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TripPlanner">
+    <wsdl:port name="TripPort" binding="tns:TripPlannerSOAPBinding">
+      <soap:address location="http://localhost:8080/ode/processes/TripPlanner.TripPort/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/ode/processes/TripPlanner.TripPort/</con:endpoint></con:endpoints><con:operation id="947b977f-48dc-4d43-8c42-463a40440d3d" isOneWay="false" action="urn:planTripWithEvents" name="planTripWithEvents" bindingOperationName="planTripWithEvents" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="030b7c29-f65d-4dbe-8b99-cded1c76febe" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ode/processes/TripPlanner.TripPort/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://nswi145/PlanTrip/xsd">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <xsd:tripInput>\r
+         <tripName>Sightseeing in Rome</tripName>\r
+         <dateFrom>2024-08-10</dateFrom>\r
+         <dateTo>2024-08-15</dateTo>\r
+         <geohashForEvents>sr2ykk5t6kvug</geohashForEvents>\r
+         <radiusForEvents>30</radiusForEvents>\r
+      </xsd:tripInput>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:planTripWithEvents"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
