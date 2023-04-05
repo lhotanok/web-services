@@ -11,7 +11,7 @@
    targetNamespace="http://nswi145/PlanTrip/wsdl">
     <wsdl:import location="trip-planner.wsdl"
       namespace="http://trip_planner.example.org/" />
-	<wsdl:import location="event-discovery-api.wsdl"
+	  <wsdl:import location="event-discovery-api.wsdl"
       namespace="http://event_discovery_api.example.org/" />
 
 	<wsdl:types>
@@ -21,10 +21,19 @@
 					<xs:element name="tripName" type="xs:string"/>
 					<xs:element name="dateFrom" type="xs:dateTime"/>
 					<xs:element name="dateTo" type="xs:dateTime"/>
+          <xs:element name="geohashForEvents" type="xs:string"/>
+          <xs:element name="radiusForEvents" type="xs:integer"/>
 				</xs:sequence>
 			</xs:complexType>
-			<xs:element name="tripInput" type="tnsxsd:TripInput" />
-			<xs:element name="tripOutput" type="trip:Trip"/>
+			<xs:element name="tripInput" type="tnsxsd:TripInput"/>
+			<xs:element name="tripOutput">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="trip" type="trip:Trip"/>
+            <xs:element name="eventsNearby" type="event:Event" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+			</xs:complexType>
+      </xs:element>
 		</xs:schema>
 	</wsdl:types>
 
@@ -51,6 +60,12 @@
 	<wsdl:portType name="SetDateResponsePortType">
 		<wsdl:operation name="setDateOperation">
 			<wsdl:input name="setDateInput" message="trip:setDateResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+
+  <wsdl:portType name="FetchNearEventsByGeohashResponsePortType">
+		<wsdl:operation name="fetchNearEventsByGeohashOperation">
+			<wsdl:input name="fetchNearEventsByGeohashInput" message="event:fetchNearEventsByGeohashResponse"/>
 		</wsdl:operation>
 	</wsdl:portType>
 
@@ -87,6 +102,16 @@
 		</wsdl:operation>
 	</wsdl:binding>
 
+  <wsdl:binding name="FetchNearEventsByGeohashSOAPBinding" type="tns:FetchNearEventsByGeohashResponsePortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="fetchNearEventsByGeohashOperation">
+			<soap:operation soapAction="urn:fetchNearEventsByGeohashResponseOperation" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+
 	<wsdl:service name="TripPlannerService">
 		<wsdl:port name="TripPort" binding="tns:TripPlannerSOAPBinding">
 			<soap:address location="http://localhost:8080/ode/processes/TripPlanner"/>
@@ -96,6 +121,9 @@
 		</wsdl:port>
 		<wsdl:port name="SetDatePort" binding="tns:SetDateSOAPBinding">
 			<soap:address location="http://localhost:8080/ode/processes/TripPlannerSetDate"/>
+		</wsdl:port>
+    <wsdl:port name="FetchNearEventsByGeohashPort" binding="tns:FetchNearEventsByGeohashSOAPBinding">
+			<soap:address location="http://localhost:8080/ode/processes/TripPlannerFetchNearEventsByGeohash"/>
 		</wsdl:port>
 	</wsdl:service>
 
@@ -111,6 +139,11 @@
 	<plnk:partnerLinkType name="SetDateLinkType">
 	  <plnk:role name="SetDateRole" portType="trip:TripPlannerService" />
 	  <plnk:role name="SetDateClientRole" portType="tns:SetDateResponsePortType" />
+	</plnk:partnerLinkType>
+
+  <plnk:partnerLinkType name="FetchNearEventsByGeohashLinkType">
+	  <plnk:role name="FetchNearEventsByGeohashRole" portType="event:EventDiscoveryApiService" />
+	  <plnk:role name="FetchNearEventsByGeohashClientRole" portType="tns:FetchNearEventsByGeohashResponsePortType" />
 	</plnk:partnerLinkType>
 
 </wsdl:definitions>

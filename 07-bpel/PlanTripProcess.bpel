@@ -7,6 +7,8 @@
     xmlns:tnswsdl="http://nswi145/PlanTrip/wsdl"
     xmlns:tnsxsd="http://nswi145/PlanTrip/xsd"
     xmlns:trip="http://trip_planner.example.org/"
+    xmlns:event="http://event_discovery_api.example.org/"
+    xmlns:bpel="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
     queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath2.0"
     expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath2.0">
 
@@ -26,6 +28,10 @@
         partnerLinkType="tnswsdl:SetDateLinkType"
         myRole="SetDateClientRole"
         partnerRole="SetDateRole"/>
+    <partnerLink name="FetchNearEventsByGeohashLink"
+        partnerLinkType="tnswsdl:FetchNearEventsByGeohashLinkType"
+        myRole="FetchNearEventsByGeohashClientRole"
+        partnerRole="FetchNearEventsByGeohashRole"/>
   </partnerLinks>
 
   <variables>
@@ -33,7 +39,6 @@
     <variable name="outputMessage" messageType="tnswsdl:TripOutputMessage" />
 
     <variable name="inputTrip" element="tnswsdl:tripInput" />
-    <variable name="outputTrip" element="tnswsdl:tripOutput" />
 
     <variable name="getOrCreateRequestElement" element="trip:getOrCreate" />
     <variable name="getOrCreateRequest" messageType="trip:getOrCreateRequest" />
@@ -44,6 +49,13 @@
     <variable name="setDateRequest" messageType="trip:setDateRequest" />
     <variable name="setDateResponse" messageType="trip:setDateResponse" />
     <variable name="setDateResponseElement" element="trip:setDate" />
+
+    <variable name="fetchNearEventsByGeohashRequestElement" element="event:fetchNearEventsByGeohash" />
+    <variable name="fetchNearEventsByGeohashRequest" messageType="event:fetchNearEventsByGeohashRequest" />
+    <variable name="fetchNearEventsByGeohashResponse" messageType="event:fetchNearEventsByGeohashResponse" />
+    <variable name="fetchNearEventsByGeohashResponseElement" element="event:fetchNearEventsByGeohash" />
+
+    <variable name="outputElement" element="tnswsdl:tripOutput" />
   </variables>
 
   <sequence>
@@ -63,6 +75,20 @@
     	</copy>
     </assign>
 
+    <assign name="InitOutputElement">
+      <copy>
+        <from>
+          <literal>
+            <tnsxsd:plannedTrip>
+              <tnsxsd:trip></tnsxsd:trip>
+              <tnsxsd:eventsNearby></tnsxsd:eventsNearby>
+            </tnsxsd:plannedTrip>
+          </literal>
+        </from>
+        <to variable="outputElement" />
+      </copy>
+    </assign>
+
     <assign name="InitGetOrCreateRequest">
       <copy>
         <from>
@@ -74,6 +100,7 @@
         </from>
         <to variable="getOrCreateRequestElement" />
       </copy>
+
       <copy>
       	<from>$inputTrip/tripName</from>
       	<to>$getOrCreateRequestElement/trip:tripName</to>
@@ -96,17 +123,6 @@
         <from variable="getOrCreateResponse" part="parameters"/>
         <to variable="getOrCreateResponseElement"/>
       </copy>
-      <copy>
-    		<from>$getOrCreateResponseElement</from>
-    		<to variable="outputMessage" part="parameters"/>
-    	</copy>
-    </assign>
-
-    <assign name="ParseSetDateInput">
-    	<copy>
-    		<from variable="outputMessage" part="parameters"/>
-    		<to variable="outputTrip"/>
-    	</copy>
     </assign>
 
     <assign name="InitSetDateRequest">
@@ -123,19 +139,10 @@
         <to variable="setDateRequestElement" />
       </copy>
 
-
-      <!--
-        I can't figure out how 'uuid' value from 'getOrCreateResponse' should be passed
-        to `setDate` operation's input.
-        I tried tons of different approaches but I always ended up with 'ns2e24D:selectionFailure'
-        while testing in SOAP UI. Both '$inputTrip/dateFrom' and '$inputTrip/dateTo' work fine,
-        as well as 'planTripWithEvents' + 'getOrCreate' operations without `setDate' operation 🤷‍♀️
-      -->
       <copy>
-        <from>$outputTrip/uuid</from>
+        <from>$getOrCreateResponseElement/descendant::uuid</from>
         <to>$setDateRequestElement/trip:tripId</to>
       </copy>
-
 
       <copy>
         <from>$inputTrip/dateFrom</from>
@@ -164,7 +171,60 @@
         <to variable="setDateResponseElement"/>
       </copy>
       <copy>
-        <from>$setDateResponseElement</from>
+        <from>$setDateResponseElement/descendant::return</from>
+        <to>$outputElement/tnsxsd:trip</to>
+      </copy>
+    </assign>
+
+
+    <assign name="InitFetchNearEventsByGeohashRequest">
+      <copy>
+        <from>
+        	<literal>
+        		<event:fetchNearEventsByGeohash>
+              <event:geohash></event:geohash>
+              <event:radius></event:radius>
+            </event:fetchNearEventsByGeohash>
+        	</literal>
+        </from>
+        <to variable="fetchNearEventsByGeohashRequestElement" />
+      </copy>
+
+      <copy>
+      	<from>$inputTrip/geohashForEvents</from>
+      	<to>$fetchNearEventsByGeohashRequestElement/event:geohash</to>
+      </copy>
+      <copy>
+      	<from>$inputTrip/radiusForEvents</from>
+      	<to>$fetchNearEventsByGeohashRequestElement/event:radius</to>
+      </copy>
+      <copy>
+      	<from variable="fetchNearEventsByGeohashRequestElement"/>
+      	<to variable="fetchNearEventsByGeohashRequest" part="parameters"/>
+      </copy>
+    </assign>
+
+	  <invoke
+        name="InvokeFetchNearEventsByGeohashTrip"
+        partnerLink="FetchNearEventsByGeohashLink"
+        operation="fetchNearEventsByGeohash"
+        inputVariable="fetchNearEventsByGeohashRequest"
+        outputVariable="fetchNearEventsByGeohashResponse" />
+
+    <assign name="ParseFetchNearEventsByGeohashResponse">
+      <copy>
+        <from variable="fetchNearEventsByGeohashResponse" part="parameters"/>
+        <to variable="fetchNearEventsByGeohashResponseElement"/>
+      </copy>
+      <copy>
+        <from>$fetchNearEventsByGeohashResponseElement</from>
+        <to>$outputElement/tnsxsd:eventsNearby</to>
+      </copy>
+    </assign>
+
+    <assign name="PrepareOutputMessage">
+      <copy>
+        <from>$outputElement</from>
         <to variable="outputMessage" part="parameters"/>
       </copy>
     </assign>

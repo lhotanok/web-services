@@ -4,6 +4,7 @@
     xmlns:tnsbpel="http://nswi145/PlanTrip/bpel"
     xmlns:tnswsdl="http://nswi145/PlanTrip/wsdl"
     xmlns:trip="http://trip_planner.example.org/"
+    xmlns:event="http://event_discovery_api.example.org/"
   >
 
   <process name="tnsbpel:TripPlanner">
@@ -17,11 +18,17 @@
     <invoke partnerLink="SetDateLink">
       <service name="trip:TripPlannerService" port="TripPlannerServiceSOAP" />
     </invoke>
+    <invoke partnerLink="FetchNearEventsByGeohashLink">
+      <service name="event:EventDiscoveryApiService" port="EventDiscoveryApiServiceSOAP" />
+    </invoke>
     <provide partnerLink="GetOrCreateLink">
       <service name="tnswsdl:TripPlannerService" port="GetOrCreatePort" />
     </provide>
     <provide partnerLink="SetDateLink">
       <service name="tnswsdl:TripPlannerService" port="SetDatePort" />
+    </provide>
+    <provide partnerLink="FetchNearEventsByGeohashLink">
+      <service name="tnswsdl:TripPlannerService" port="FetchNearEventsByGeohashPort" />
     </provide>
   </process>
 
