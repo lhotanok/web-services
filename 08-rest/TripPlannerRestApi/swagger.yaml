@@ -1,0 +1,85 @@
+swagger: "2.0"
+info:
+  description: "Trip Planner REST API documentation"
+  version: "1.0.0"
+  title: "Trip Planner"
+basePath: /rest
+paths:
+  /trips:
+    get:
+      summary: "Get all trips"
+      description: ""
+      produces:
+      - "application/xml"
+      - "application/json"
+
+      responses:
+        "200":
+          description: "Success"
+    post:
+      summary: "Create a new trip"
+      description: ""
+      consumes:
+      - application/xml
+      produces:
+      - "application/xml"
+      - "application/json"
+      responses:
+        "201":
+          description: "New trip create successfully"
+        "409":
+          description: "Trip with the provided id already exists"
+  /trips/{tripId}:
+    get:
+      summary: "Get trip with id {tripId}"
+      description: ""
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "tripId"
+        in: "path"
+        description: "Trip id"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Success"
+        "404":
+          description: "No trip with id {tripId} found"
+    put:
+      summary: "Replace trip identified by id {tripId} with a new trip"
+      description: ""
+      consumes:
+      - application/xml
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "tripId"
+        in: "path"
+        description: "Trip id"
+        required: true
+        type: "string"
+      responses:
+        "204":
+          description: "Trip was successfully replaced"
+        "409":
+          description: "Trip ID in the request URL must be same as trip ID from the request body"
+    delete:
+      summary: "Delete trip with id {tripId}"
+      description: ""
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "tripId"
+        in: "path"
+        description: "Trip id"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Trip was successfully deleted"
+        "204":
+          description: "No trip with id {tripId} was found, no need for a delete operation"
