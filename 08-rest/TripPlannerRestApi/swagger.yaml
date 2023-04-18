@@ -24,6 +24,12 @@ paths:
       produces:
       - "application/xml"
       - "application/json"
+      parameters:
+      - name: "trip"
+        in: "body"
+        description: Trip to be created
+        schema:
+          $ref: '#/definitions/Trip'
       responses:
         "201":
           description: "New trip create successfully"
@@ -61,6 +67,11 @@ paths:
         description: "Trip id"
         required: true
         type: "string"
+      - name: "trip"
+        in: "body"
+        description: The new trip to replace the old trip with id {tripId}.
+        schema:
+          $ref: '#/definitions/Trip'
       responses:
         "204":
           description: "Trip was successfully replaced"
@@ -83,3 +94,37 @@ paths:
           description: "Trip was successfully deleted"
         "204":
           description: "No trip with id {tripId} was found, no need for a delete operation"
+definitions:
+  Trip:
+    type: object
+    required:
+      - uuid
+    properties:
+      uuid:
+        type: string
+      name:
+        type: string
+      dateFrom:
+        type: string
+      dateTo:
+        type: string
+      locationCity:
+        type: string
+      locationCountry:
+        type: string
+      accommodation:
+        type: object
+        properties:
+          isBooked:
+            type: boolean
+          name:
+            type: string
+          address:
+            type: object
+            properties:
+              streetAddress:
+                type: string
+              city:
+                type: string
+              country:
+                type: string
