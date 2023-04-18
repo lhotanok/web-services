@@ -95,6 +95,24 @@ paths:
         "204":
           description: "No trip with id {tripId} was found, no need for a delete operation"
 definitions:
+  Accommodation:
+    type: object
+    properties:
+      isBooked:
+        type: boolean
+      name:
+        type: string
+      address:
+        $ref: '#/definitions/Address'
+  Address:
+    type: object
+    properties:
+      streetAddress:
+        type: string
+      city:
+        type: string
+      country:
+        type: string
   Trip:
     type: object
     required:
@@ -113,18 +131,4 @@ definitions:
       locationCountry:
         type: string
       accommodation:
-        type: object
-        properties:
-          isBooked:
-            type: boolean
-          name:
-            type: string
-          address:
-            type: object
-            properties:
-              streetAddress:
-                type: string
-              city:
-                type: string
-              country:
-                type: string
+        $ref: '#/definitions/Accommodation'
