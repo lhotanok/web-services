@@ -20,7 +20,7 @@ public class TripPlannerRestApi {
      * @return String that will be returned as a text/plain response.
      */
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public List<Trip> getAllTrips() {
         return tripPlanner.viewMyTrips();
     }

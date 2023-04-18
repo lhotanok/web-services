@@ -1,12 +1,14 @@
 package org.example.trip_planner;
 
-import org.example.shared.Address;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 public class Accommodation {
     public boolean isBooked;
     public String name;
     public Address address;
 
+    public Accommodation(){}
     public Accommodation(boolean isBooked) {
         this.isBooked = isBooked;
     }

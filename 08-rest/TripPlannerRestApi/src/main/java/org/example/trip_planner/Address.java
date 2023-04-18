@@ -1,13 +1,17 @@
-package org.example.shared;
+package org.example.trip_planner;
+
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 import java.util.Locale;
 
+@XmlRootElement
 public class Address {
     public String streetAddress;
     public String postalCode;
     public String city;
     public String country;
     public Locale.IsoCountryCode countryCode;
+    public Address(){}
 
     public Address(String streetAddress, String city, String country) {
         this.streetAddress = streetAddress;

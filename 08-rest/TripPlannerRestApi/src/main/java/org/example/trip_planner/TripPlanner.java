@@ -2,7 +2,6 @@ package org.example.trip_planner;
 
 import org.example.planned_items.Calendar;
 import org.example.planned_items.*;
-import org.example.shared.Address;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

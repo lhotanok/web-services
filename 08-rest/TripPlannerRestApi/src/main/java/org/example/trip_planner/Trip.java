@@ -1,16 +1,20 @@
 package org.example.trip_planner;
 
+import jakarta.xml.bind.annotation.XmlRootElement;
+
 import java.util.Date;
 import java.util.UUID;
 
+@XmlRootElement
 public class Trip {
-    public final UUID uuid;
+    public UUID uuid;
     public String name;
     public Date dateFrom;
     public Date dateTo;
     public String locationCity;
     public String locationCountry;
     public Accommodation accommodation;
+    public Trip(){}
     public Trip(String name) {
         this.name = name;
         this.uuid = UUID.nameUUIDFromBytes(name.getBytes());
