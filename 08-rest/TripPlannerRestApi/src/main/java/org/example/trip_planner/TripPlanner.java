@@ -148,6 +148,15 @@ public class TripPlanner {
         return newTrip;
     }
 
+    public boolean deleteTrip(UUID tripId) {
+        if (mockTrips.containsKey(tripId)) {
+            mockTrips.remove(tripId);
+            return true;
+        }
+
+        return false;
+    }
+
     public Trip setDate(UUID tripId, Date dateFrom, Date dateTo) {
         Trip trip = tryGetTrip(tripId);
         trip.setDate(dateFrom, dateTo);
