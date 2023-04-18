@@ -14,7 +14,9 @@ public class Trip {
     public String locationCity;
     public String locationCountry;
     public Accommodation accommodation;
-    public Trip(){}
+    public Trip(){
+        this.uuid = UUID.randomUUID();
+    }
     public Trip(String name) {
         this.name = name;
         this.uuid = UUID.nameUUIDFromBytes(name.getBytes());

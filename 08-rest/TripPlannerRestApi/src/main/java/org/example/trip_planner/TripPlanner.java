@@ -148,6 +148,26 @@ public class TripPlanner {
         return newTrip;
     }
 
+    public Trip getTrip(UUID tripId) {
+        return mockTrips.get(tripId);
+    }
+
+    public Trip getOrCreate(Trip trip) {
+        for (Trip mockTrip : mockTrips.values()) {
+            if (mockTrip.name().equalsIgnoreCase(trip.name())
+                    && mockTrip.locationCity.equalsIgnoreCase(trip.locationCity)
+                    && mockTrip.locationCountry.equalsIgnoreCase((trip.locationCity))
+                    && mockTrip.dateFrom.toString().equalsIgnoreCase(trip.dateFrom.toString())
+                    && mockTrip.dateTo.toString().equalsIgnoreCase(trip.dateTo.toString())) {
+                return trip;
+            }
+        }
+
+        mockTrips.put(trip.id(), trip);
+
+        return trip;
+    }
+
     public boolean deleteTrip(UUID tripId) {
         if (mockTrips.containsKey(tripId)) {
             mockTrips.remove(tripId);
@@ -155,6 +175,10 @@ public class TripPlanner {
         }
 
         return false;
+    }
+
+    public boolean tripExists(UUID tripId) {
+        return mockTrips.containsKey(tripId);
     }
 
     public Trip setDate(UUID tripId, Date dateFrom, Date dateTo) {
