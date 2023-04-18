@@ -12,7 +12,6 @@
     <list default="true" id="5239dbf2-a810-424c-b5f9-5df9a17a5518" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/TripPlannerRestApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/TripPlannerRestApi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/trip_planner/Trip.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/trip_planner/Trip.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/trip_planner/TripPlanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/trip_planner/TripPlanner.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -190,7 +189,7 @@
       <updated>1681800239441</updated>
       <workItem from="1681800241358" duration="262000" />
       <workItem from="1681800571753" duration="6196000" />
-      <workItem from="1681806799780" duration="10384000" />
+      <workItem from="1681806799780" duration="11887000" />
     </task>
     <servers />
   </component>

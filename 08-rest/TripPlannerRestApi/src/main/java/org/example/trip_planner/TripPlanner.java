@@ -135,19 +135,6 @@ public class TripPlanner {
         mockCalendar.addItem(item);
     }
 
-    public Trip getOrCreate(String tripName) {
-        for (Trip trip : mockTrips.values()) {
-            if (trip.name().equalsIgnoreCase(tripName)) {
-                return trip;
-            }
-        }
-
-        Trip newTrip = new Trip(tripName);
-        mockTrips.put(newTrip.id(), newTrip);
-
-        return newTrip;
-    }
-
     public Trip getTrip(UUID tripId) {
         return mockTrips.get(tripId);
     }
@@ -168,6 +155,10 @@ public class TripPlanner {
         return trip;
     }
 
+    public void replaceTrip(Trip newTrip) {
+        mockTrips.replace(newTrip.id(), newTrip);
+    }
+
     public boolean deleteTrip(UUID tripId) {
         if (mockTrips.containsKey(tripId)) {
             mockTrips.remove(tripId);
@@ -179,34 +170,5 @@ public class TripPlanner {
 
     public boolean tripExists(UUID tripId) {
         return mockTrips.containsKey(tripId);
-    }
-
-    public Trip setDate(UUID tripId, Date dateFrom, Date dateTo) {
-        Trip trip = tryGetTrip(tripId);
-        trip.setDate(dateFrom, dateTo);
-
-        return trip;
-    }
-
-    public Trip setLocation(UUID tripId, String city, String country) {
-        Trip trip = tryGetTrip(tripId);
-        trip.setLocation(city, country);
-
-        return trip;
-    }
-
-    public Trip setAccommodation(UUID tripId, Accommodation accommodation) {
-        Trip trip = tryGetTrip(tripId);
-        trip.setAccommodation(accommodation);
-
-        return trip;
-    }
-
-    private Trip tryGetTrip(UUID tripId) {
-        if (!mockTrips.containsKey(tripId)) {
-            throw new IllegalArgumentException("No trip found for uuid: " + tripId);
-        }
-
-        return mockTrips.get(tripId);
     }
 }

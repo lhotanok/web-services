@@ -60,6 +60,27 @@ public class TripPlannerRestApi {
         ).build();
     }
 
+    @PUT
+    @Consumes(MediaType.APPLICATION_XML)
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Path("{tripId}")
+    public Response replaceTrip(
+            @PathParam("tripId") UUID tripId, JAXBElement<Trip> tripElement
+    ) {
+        Trip trip = tripElement.getValue();
+
+        if (tripId.hashCode() != trip.id().hashCode()) {
+            return Response
+                    .status(409)
+                    .entity("Trip ID in the request URL must be same as trip ID from the request body")
+                    .build();
+        }
+
+        tripPlanner.replaceTrip(trip);
+
+        return Response.noContent().build();
+    }
+
     @DELETE
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Path("/{tripId}")
@@ -70,7 +91,7 @@ public class TripPlannerRestApi {
 
         return tripDeleted
             ? Response.status(200).build()
-            : Response.status(204).entity("No trip with id \"" + tripId + "\" was found.").build();
+            : Response.noContent().build();
     }
 
 }
