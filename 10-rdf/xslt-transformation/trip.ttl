@@ -1,0 +1,29 @@
+@prefix ex: <http://example.org/vocabulary/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix trip: <http://example.org/trips/> .
+@prefix acm: <http://example.org/accommodation/> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix tl: <http://purl.org/NET/c4dm/timeline.owl#> .
+@prefix gr: <http://purl.org/goodrelations/v1#> .
+@prefix country: <http://eulersharp.sourceforge.net/2003/03swap/countries#>.
+
+trip:85ff567f-386a-392b-b22e-68611cefc352 a ex:Trip ;
+    ex:uuid "85ff567f-386a-392b-b22e-68611cefc352" ;
+    gr:name "Sightseeing in Rome"@en ;
+    tl:start "2023-05-01T00:00:00+02:00"^^xsd:dateTime ;
+	tl:duration "P0Y0M4DT0H0M0.000S" ;
+    ex:tripCityName "Rome"@en ;
+    ex:tripCountryName "Italy"@en ;
+    geo:lat 41.902782 ;
+    geo:long 12.496366 ;
+    ex:associatedWith acm:85ff567f-386a-392b-b22e-68611cefc352 .
+
+acm:85ff567f-386a-392b-b22e-68611cefc352 a ex:Accommodation ;
+    gr:name "Hotel Golden"@en ;
+    ex:isBooked true ;
+    ex:hasAddress [
+        ex:streetAddress "Via Marche, 84"@en ;
+        ex:cityName "Rome"@en ;
+        ex:postalCode "00187" ;
+        ex:country country:it ;
+    ] .
