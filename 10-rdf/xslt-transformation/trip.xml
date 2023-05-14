@@ -1,0 +1,28 @@
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+   <S:Body>
+      <ns2:getOrCreateResponse xmlns:ns2="http://trip_planner.example.org/">
+         <return>
+            <uuid>85ff567f-386a-392b-b22e-68611cefc352</uuid>
+            <name>Sightseeing in Rome</name>
+            <dateFrom>2023-05-01T00:00:00+02:00</dateFrom>
+            <dateTo>2023-05-05T00:00:00+02:00</dateTo>
+            <duration>P0Y0M4DT0H0M0.000S</duration>
+            <locationCity>Rome</locationCity>
+            <locationCountry>Italy</locationCountry>
+            <latitude>41.902782</latitude>
+            <longitude>12.496366</longitude>
+            <accommodation>
+               <isBooked>true</isBooked>
+               <name>Hotel Golden</name>
+               <address>
+                  <streetAddress>Via Marche, 84</streetAddress>
+                  <postalCode>00187</postalCode>
+                  <city>Rome</city>
+                  <country>Italy</country>
+                  <countryCode>it</countryCode>
+               </address>
+            </accommodation>
+         </return>
+      </ns2:getOrCreateResponse>
+   </S:Body>
+</S:Envelope>
