@@ -11,7 +11,7 @@ public class Address {
     private String postalCode;
     private String city;
     private String country;
-    private Locale.IsoCountryCode countryCode;
+    private String countryCode;
 
     public Address(String streetAddress, String city, String country) {
         this.streetAddress = streetAddress;
@@ -21,11 +21,19 @@ public class Address {
         // this.postalCode = FetchPostalCode(city, country);
     }
 
-    public Address(String streetAddress, String city, Locale.IsoCountryCode countryCode) {
+    public Address(String streetAddress, String city, String country, String countryCode) {
         this.streetAddress = streetAddress;
         this.city = city;
+        this.country = country;
         this.countryCode = countryCode;
-        // this.country = FetchCountryName(countryCode);
-        // this.postalCode = FetchPostalCode(city, countryCode);
+        // this.postalCode = FetchPostalCode(city, country);
+    }
+
+    public Address(String streetAddress, String city, String country, String countryCode, String postalCode) {
+        this.streetAddress = streetAddress;
+        this.city = city;
+        this.country = country;
+        this.countryCode = countryCode;
+        this.postalCode = postalCode;
     }
 }

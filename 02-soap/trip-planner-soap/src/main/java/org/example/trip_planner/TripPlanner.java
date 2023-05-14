@@ -36,7 +36,7 @@ public class TripPlanner implements ITripPlanner {
 
         Accommodation mockAccommodation = new Accommodation(true)
                 .setName("Hotel Golden")
-                .setAddress(new Address("Via Marche, 84", "Rome", "Italy"))
+                .setAddress(new Address("Via Marche, 84", "Rome", "Italy", "it", "00187"))
                 ;
 
         Trip mockTrip = new Trip("Sightseeing in Rome")
