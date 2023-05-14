@@ -1,6 +1,7 @@
 @prefix ex: <http://example.org/vocabulary/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix event: <http://purl.org/NET/c4dm/event.owl#> .
 @prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
 @prefix jur: <http://sweet.jpl.nasa.gov/2.3/humanJurisdiction.owl#> .
@@ -94,11 +95,35 @@ ex:isBooked a rdf:Property ;
     rdfs:domain ex:Accommodation ;
     rdfs:range xsd:boolean .
 
+ex:tripCityName a rdf:Property ;
+    rdfs:label "Trip city name"@en ;
+    rdfs:comment "Name of the city assigned from the owner of a trip."@en ;
+    rdfs:domain ex:Trip ;
+    rdfs:range rdf:langString .
+
+ex:tripCountryName a rdf:Property ;
+    rdfs:label "Trip country name"@en ;
+    rdfs:comment "Name of the country assigned from the owner of a trip."@en ;
+    rdfs:domain ex:Trip ;
+    rdfs:range rdf:langString .
+
+ex:hasAddress a rdf:Property ;
+    rdfs:label "Has address"@en ;
+    rdfs:comment "Defines a local address of an accommodation."@en ;
+    rdfs:domain ex:Accommodation ;
+    rdfs:range ex:Address .
+
 ex:streetAddress a rdf:Property ;
     rdfs:label "Street address"@en ;
     rdfs:comment "Local street address."@en ;
     rdfs:domain ex:Address ;
-    rdfs:range xsd:string .
+    rdfs:range rdf:langString .
+
+ex:cityName a rdf:Property ;
+    rdfs:label "City name"@en ;
+    rdfs:comment "Local city name."@en ;
+    rdfs:domain ex:Address ;
+    rdfs:range rdf:langString .
 
 ex:postalCode a rdf:Property ;
     rdfs:label "Postal code"@en ;
