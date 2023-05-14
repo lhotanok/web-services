@@ -1,0 +1,111 @@
+@prefix ex: <http://example.org/vocabulary/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix event: <http://purl.org/NET/c4dm/event.owl#> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix jur: <http://sweet.jpl.nasa.gov/2.3/humanJurisdiction.owl#> .
+@prefix tl: <http://purl.org/NET/c4dm/timeline.owl#> .
+
+ex:TripPlanner a rdfs:Class ;
+    rdfs:label "Trip Planner"@en ;
+    rdfs:comment "Plans a trip including its location, start date, duration, accommodation and the itinery of places and events to visit." .
+
+ex:UniqueRecord a rdfs:Class ;
+    rdfs:label "Unique record"@en .
+
+ex:Event rdf:subClassOf event:Event, ex:UniqueRecord ;
+    rdfs:label "Event"@en ;
+    rdfs:comment "An event that takes place in a specific location on a specific time." .
+
+ex:Trip rdf:subClassOf ex:Event ;
+    rdfs:label "Trip"@en ;
+    rdfs:comment "Planned trip" .
+
+ex:Place rdf:subClassOf geo:SpatialThing ;
+    rdfs:label "Place"@en ;
+    rdfs:comment "A location point defined with latitude and longitude coordinates." .
+
+ex:Accommodation rdf:subClassOf ex:Place ;
+    rdfs:label "Accommodation"@en .
+
+ex:Address a rdfs:Class ;
+    rdfs:label "Address"@en ;
+    rdfs:comment "Local address of an accommodation."@en .
+
+ex:ItineryItem rdf:subClassOf ex:Place, ex:UniqueRecord ;
+    rdfs:label "Itinery item"@en ;
+    rdfs:comment "An item that was saved into a planned trip's itinery."@en .
+
+ex:PlaceItem rdf:subClassOf ex:ItineryItem ;
+    rdfs:label "Place item"@en ;
+    rdfs:comment "A place that is planned to be visited during a trip."@en .
+
+ex:EventItem rdf:subClassOf ex:ItineryItem, ex:Event ;
+    rdfs:label "Event item"@en ;
+    rdfs:comment "An event that is planned to be visited during a trip."@en .
+
+ex:EventTime rdf:subClassOf tl:Interval ;
+    rdfs:label "Event time"@en ;
+    rdfs:comment "Defines an interval in which an event takes place."@en .
+
+ex:EventDiscoveryService a rdfs:Class ;
+    rdfs:label "Event discovery service"@en ;
+    rdfs:comment "A service that provides events based on search criteria."@en .
+
+ex:plansTrip a rdf:Property ;
+    rdfs:label "Plans trip"@en ;
+    rdfs:comment "A relation for associating a trip planner with planned trips."@en ;
+    rdfs:domain ex:TripPlanner ;
+    rdfs:range ex:Trip .
+
+ex:plansTrip a rdf:Property ;
+    rdfs:label "Plans trip"@en ;
+    rdfs:comment "A relation for associating a trip planner with planned trips."@en ;
+    rdfs:domain ex:TripPlanner ;
+    rdfs:range ex:Trip .
+
+ex:plansItineryItem a rdf:Property ;
+    rdfs:label "Plans itinery item"@en ;
+    rdfs:comment "A relation for associating a trip planner with itinery of places and events that are planned to be visited."@en ;
+    rdfs:domain ex:TripPlanner ;
+    rdfs:range ex:ItineryItem .
+
+ex:providesEvents a rdf:Property ;
+    rdfs:label "Provides events"@en ;
+    rdfs:comment "A relation for associating an event discovery service with available events."@en ;
+    rdfs:domain ex:EventDiscoveryService ;
+    rdfs:range ex:Event .
+
+ex:uuid a rdf:Property ;
+    rdfs:label "UUID"@en ;
+    rdfs:comment "Unique ID"@en ;
+    rdfs:domain ex:UniqueRecord ;
+    rdfs:range xsd:string .
+
+ex:associatedWith a rdf:Property ;
+    rdfs:label "Associated with"@en ;
+    rdfs:comment "A relation for associating a trip with an accommodation."@en ;
+    rdfs:domain ex:Trip ;
+    rdfs:range ex:Accommodation .
+
+ex:isBooked a rdf:Property ;
+    rdfs:label "Is booked"@en ;
+    rdfs:comment "Defines whether an accommodation is already booked or not."@en ;
+    rdfs:domain ex:Accommodation ;
+    rdfs:range xsd:boolean .
+
+ex:streetAddress a rdf:Property ;
+    rdfs:label "Street address"@en ;
+    rdfs:comment "Local street address."@en ;
+    rdfs:domain ex:Address ;
+    rdfs:range xsd:string .
+
+ex:postalCode a rdf:Property ;
+    rdfs:label "Postal code"@en ;
+    rdfs:domain ex:Address ;
+    rdfs:range xsd:string .
+
+ex:country a rdf:Property ;
+    rdfs:label "Country"@en ;
+    rdfs:domain ex:Address ;
+    rdfs:range jur:Country .
