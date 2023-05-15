@@ -1,0 +1,84 @@
+{
+  "@context": {
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "ex": "http://example.org/vocabulary/",
+    "trip": "http://example.org/trips/",
+    "acm": "http://example.org/accommodation/",
+    "geo": "http://www.w3.org/2003/01/geo/wgs84_pos#",
+    "tl": "http://purl.org/NET/c4dm/timeline.owl#",
+    "gr": "http://purl.org/goodrelations/v1#",
+    "country": "http://eulersharp.sourceforge.net/2003/03swap/countries#",
+    "uuid": "ex:uuid",
+    "name": {
+      "@id": "gr:name",
+      "@container": "@language"
+    },
+    "start": {
+      "@id": "tl:start",
+      "@type": "xsd:dateTime"
+    },
+    "duration": {
+      "@id": "tl:duration",
+      "@type": "xsd:duration"
+    },
+    "tripCityName": {
+      "@id": "ex:tripCityName",
+      "@container": "@language"
+    },
+    "tripCountryName": {
+      "@id": "ex:tripCountryName",
+      "@container": "@language"
+    },
+    "lat": "geo:lat",
+    "long": "geo:long",
+    "associatedWith": "ex:associatedWith",
+    "isBooked": "ex:isBooked",
+    "hasAddress": "ex:hasAddress",
+    "streetAddress": {
+      "@id": "ex:streetAddress",
+      "@container": "@language"
+    },
+    "cityName": {
+      "@id": "ex:cityName",
+      "@container": "@language"
+    },
+    "postalCode": "ex:postalCode",
+    "addressCountry": "ex:country"
+  },
+  "@id": "trip:85ff567f-386a-392b-b22e-68611cefc352",
+  "@type": "ex:Trip",
+  "uuid": "85ff567f-386a-392b-b22e-68611cefc352",
+  "name": {
+    "en": "Sightseeing in Rome"
+  },
+  "start": "2023-05-01T00:00:00+02:00",
+  "duration": "P0Y0M4DT0H0M0.000S",
+  "tripCityName": {
+    "en": "Rome"
+  },
+  "tripCountryName": {
+    "en": "Italy"
+  },
+  "lat": 41.902782,
+  "long": 12.496366,
+  "associatedWith": {
+    "@id": "acm:85ff567f-386a-392b-b22e-68611cefc352",
+    "@type": "ex:Accommodation",
+    "name": {
+      "en": "Hotel Golden"
+    },
+    "isBooked": true,
+    "hasAddress": {
+      "streetAddress": {
+        "en": "Via Marche, 84"
+      },
+      "cityName": {
+        "en": "Rome"
+      },
+      "postalCode": "00187",
+      "addressCountry": {
+        "@id": "country:it"
+      }
+    }
+  }
+}
