@@ -11,7 +11,7 @@ trip:85ff567f-386a-392b-b22e-68611cefc352 a ex:Trip ;
     ex:uuid "85ff567f-386a-392b-b22e-68611cefc352" ;
     gr:name "Sightseeing in Rome"@en ;
     tl:start "2023-05-01T00:00:00+02:00"^^xsd:dateTime ;
-    tl:duration "P0Y0M4DT0H0M0.000S" ;
+    tl:duration "P0Y0M4DT0H0M0.000S"^^xsd:duration ;
     ex:tripCityName "Rome"@en ;
     ex:tripCountryName "Italy"@en ;
     geo:lat 41.902782 ;
